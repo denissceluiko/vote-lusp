@@ -9,9 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-bcmath": "^7.2",
+        "ext-mbstring": "^7.2",
+        "ext-mysqli": "^7.2",
+        "ext-xml": "^7.2",
+        "ext-zip": "^1.15",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^6.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
