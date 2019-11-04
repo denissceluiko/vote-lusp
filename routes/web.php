@@ -14,3 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('faculty')->group(function () {
+    Route::post('import', 'FacultyController@import');
+});
+
+Route::prefix('program')->group(function () {
+    Route::post('import', 'ProgramController@import');
+});
+
+Route::prefix('student')->group(function () {
+    Route::post('import', 'StudentController@import');
+});
+
+//Auth::routes(['register' => false]);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
