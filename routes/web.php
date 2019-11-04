@@ -36,6 +36,7 @@ Route::prefix('candidate')->group(function () {
 Route::prefix('party')->group(function () {
     Route::get('/', 'PartyController@index')->name('party.index');
     Route::get('{party}', 'PartyController@show')->name('party.show');
+    Route::get('{party}/ballot', 'PartyController@ballot')->name('party.ballot');
 });
 
 //Auth::routes(['register' => false]);

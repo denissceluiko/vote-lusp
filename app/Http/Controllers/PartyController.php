@@ -15,4 +15,9 @@ class PartyController extends Controller
     {
         return view('party.show', compact('party'));
     }
+
+    public function ballot(Party $party)
+    {
+        return response()->download(storage_path('app/'.$party->createBallot()));
+    }
 }
