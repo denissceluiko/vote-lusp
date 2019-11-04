@@ -31,6 +31,10 @@ Route::prefix('candidate')->group(function () {
     Route::post('import', 'CandidateController@import');
 });
 
+Route::prefix('party')->group(function () {
+    Route::get('{party}', 'PartyController@show');
+});
+
 //Auth::routes(['register' => false]);
 Auth::routes();
 

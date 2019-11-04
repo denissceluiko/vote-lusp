@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Party;
 
 class PartyController extends Controller
 {
-
+    public function show(Party $party)
+    {
+        return view('party.show', compact('party'));
+    }
 }

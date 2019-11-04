@@ -13,4 +13,9 @@ class Candidate extends Model
     {
         return $this->belongsTo(Party::class);
     }
+
+    public function student() : BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
 }
