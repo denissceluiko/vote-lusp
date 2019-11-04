@@ -45,11 +45,18 @@ class Party extends Model
         $ballot = new TemplateProcessor(resource_path('templates/Ballot.docx'));
 
         $ballot->setValue('faculty_name', $this->faculty->abbreviation);
-        $ballot->setValue('year', Carbon::now()->format('Y'));
+        $ballot->setValue('year', Carbon::now()->format('Y.'));
         $ballot->setValue('party_name', $this->name);
         $ballot->setValue('pn', $this->number);
 
-        list($left, $right) = $this->members->split(2);
+        // In case there's only one candidate
+        if ($this->members->count() > 1) {
+            list($left, $right) = $this->members->split(2);
+        } else {
+            $left = $this->members;
+            $right = collect();
+        }
+
         $ballot->cloneRow('no1',$left->count());
 
         $i = 1;
