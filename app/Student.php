@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -17,5 +18,10 @@ class Student extends Model
     public function faculty() : BelongsTo
     {
         return $this->belongsTo(Faculty::class);
+    }
+
+    public function scopeBySID(Builder $query, string $sid)
+    {
+        return $query->where('student_id', $sid);
     }
 }

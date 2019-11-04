@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Statistics</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,6 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div>Faculties: {{ App\Faculty::count() }}</div>
+                    <div>Programs: {{ App\Program::count() }}</div>
+                    <div>Students: {{ App\Student::count() }}</div>
+                    <div>Parties: {{ App\Party::count() }}</div>
+                    <div>Candidates: {{ App\Candidate::count() }}</div>
                 </div>
             </div>
         </div>
@@ -51,6 +56,19 @@
                             {{ Form::file('student_file') }}
                         </div>
                         {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
+                    {{ Form::close() }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Import candidates</div>
+                <div class="card-body">
+                    {{ Form::open(['action' => 'CandidateController@import', 'files' => true]) }}
+                    <div class="form-group">
+                        {{ Form::file('candidate_file') }}
+                    </div>
+                    {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
                     {{ Form::close() }}
                 </div>
             </div>

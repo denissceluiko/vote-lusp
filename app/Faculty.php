@@ -26,4 +26,8 @@ class Faculty extends Model
     public function scopeByName(Builder $query, string $name) {
         return $query->where('name', $name);
     }
+
+    public function scopeByAbbreviation(Builder $query, string $abbreviation) {
+        return $query->where('abbreviation', $abbreviation);
+    }
 }

@@ -27,6 +27,10 @@ Route::prefix('student')->group(function () {
     Route::post('import', 'StudentController@import');
 });
 
+Route::prefix('candidate')->group(function () {
+    Route::post('import', 'CandidateController@import');
+});
+
 //Auth::routes(['register' => false]);
 Auth::routes();
 
