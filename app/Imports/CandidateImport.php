@@ -39,11 +39,11 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
             }
             $student = Student::bySID($candidate['student_id'])->first();
 
-            $party->members()->updateOrCreate([
+            $party->candidates()->updateOrCreate([
                 'student_id' => $student->id,
             ], [
-                'phone'=> $candidate['phone'],
-                'email'=> $candidate['email'],
+                'phone' => $candidate['phone'],
+                'email' => $candidate['email'],
             ]);
         });
     }

@@ -23,6 +23,11 @@ class Faculty extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function parties() : HasMany
+    {
+        return $this->hasMany(Party::class);
+    }
+
     public function scopeByName(Builder $query, string $name) {
         return $query->where('name', $name);
     }

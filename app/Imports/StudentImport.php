@@ -47,7 +47,7 @@ class StudentImport
             }
 
             $faculty->students()->updateOrCreate([
-                'student_id' => trim($row['student_id'])
+                'sid' => trim($row['student_id'])
             ], [
                 'name' => trim($row['name']),
                 'surname' => trim($row['surname']),

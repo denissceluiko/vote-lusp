@@ -2,12 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Faculty;
 use App\Imports\FacultyImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class FacultyController extends Controller
 {
+
+    /**
+     * Index page for faculties
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        return view('faculty.index');
+    }
+
+    /**
+     * Show page for faculties
+     *
+     * @param Faculty $faculty
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Faculty $faculty)
+    {
+        return view('faculty.show', compact('faculty'));
+    }
+
     /**
      * Imports faculties
      *

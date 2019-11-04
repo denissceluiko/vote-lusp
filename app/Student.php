@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'surname', 'student_id', 'faculty_id', 'program_id', 'status'];
+    protected $fillable = ['name', 'surname', 'sid', 'faculty_id', 'program_id', 'status'];
 
     public function program() : BelongsTo
     {
@@ -28,6 +28,6 @@ class Student extends Model
 
     public function scopeBySID(Builder $query, string $sid)
     {
-        return $query->where('student_id', $sid);
+        return $query->where('sid', $sid);
     }
 }

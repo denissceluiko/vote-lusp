@@ -23,6 +23,11 @@ class Party extends Model
         return $this->hasManyThrough(Student::class, Candidate::class, 'party_id', 'id', 'id', 'student_id');
     }
 
+    public function candidates() : HasMany
+    {
+        return $this->hasMany(Candidate::class);
+    }
+
     public function scopeByName(Builder $query, string $name)
     {
         return $query->where('name', $name);
