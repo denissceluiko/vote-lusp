@@ -48,4 +48,9 @@ class FacultyController extends Controller
 
         return back();
     }
+
+    public function studentList(Faculty $faculty)
+    {
+        return response()->download(storage_path('app/'.$faculty->createStudentList()));
+    }
 }

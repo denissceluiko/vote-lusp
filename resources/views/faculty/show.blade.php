@@ -6,8 +6,7 @@
             <div class="col-md-12">
                 <h1>{{ $faculty->name }} ({{ $faculty->abbreviation }})</h1>
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary">Generate ballots</button>
-                    <button type="button" class="btn btn-secondary">Generate student list</button>
+                    <a href="{{ route('faculty.studentList', $faculty) }}" class="btn btn-secondary">Generate student list</a>
                 </div>
                 <table class="table">
                     <thead>
