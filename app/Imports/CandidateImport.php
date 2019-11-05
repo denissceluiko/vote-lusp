@@ -35,6 +35,7 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
                 $party = $this->party = Party::create([
                     'name' => $candidate['party'],
                     'faculty_id' => $faculty->id,
+                    'number' => $candidate['party_number'] ?? null,
                 ]);
             }
             $student = Student::bySID($candidate['student_id'])->first();
