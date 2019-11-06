@@ -38,7 +38,7 @@ class Party extends Model
 
     public function createBallot()
     {
-        if ($this->members->count() > 20) {
+        if ($this->members->count() > 40) {
             return null;
         }
 
@@ -73,9 +73,15 @@ class Party extends Model
                 "name2#$i" => $candidate_right ? "{$candidate_right->name} {$candidate_right->surname}" : '',
             ]);
 
-            $ballot->setImageValue("m1#$i", ['path' => resource_path('templates/rhombus.png'), 'width' => 50, 'height' => 50]);
+            if ($this->members->count() > 20) {
+                $imageAttributes = ['path' => resource_path('templates/rhombus.png'), 'width' => 27, 'height' => 27];
+            } else {
+                $imageAttributes = ['path' => resource_path('templates/rhombus.png'), 'width' => 50, 'height' => 50];
+            }
+
+            $ballot->setImageValue("m1#$i", $imageAttributes);
             if ($candidate_right) {
-                $ballot->setImageValue("m2#$i", ['path' => resource_path('templates/rhombus.png'), 'width' => 50, 'height' => 50]);
+                $ballot->setImageValue("m2#$i", $imageAttributes);
             } else {
                 $ballot->setValue("m2#$i", '');
             }
