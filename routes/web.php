@@ -22,8 +22,10 @@ Route::prefix('faculty')->group(function () {
     Route::get('{faculty}/studentList', 'FacultyController@studentList')->name('faculty.studentList');
 });
 
+Route::resource('program', 'ProgramController', ['only' => ['index', 'show']]);
 Route::prefix('program')->group(function () {
     Route::post('import', 'ProgramController@import');
+    Route::get('{program}/studentList', 'ProgramController@studentList')->name('program.studentList');
 });
 
 Route::prefix('student')->group(function () {

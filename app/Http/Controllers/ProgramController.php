@@ -16,7 +16,8 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        //
+        $programs = Program::withCount('students')->orderBy('faculty_id')->get();
+        return view('program.index', compact('programs'));
     }
 
     /**
@@ -48,7 +49,7 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        //
+        return view('program.show', compact('program'));
     }
 
     /**
@@ -100,5 +101,10 @@ class ProgramController extends Controller
 
         Excel::import(new ProgramImport, $request->file('program_file'));
         return back();
+    }
+
+    public function studentList(Program $program)
+    {
+        return response()->download(storage_path('app/'.$program->createStudentList()));
     }
 }
