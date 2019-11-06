@@ -14,7 +14,7 @@
                         </div>
                     @endif
                     <div><a href="{{ route('faculty.index') }}">Faculties</a>: {{ App\Faculty::count() }}</div>
-                    <div>Programs: {{ App\Program::count() }}</div>
+                    <div><a href="{{ route('program.index') }}">Programs</a>: {{ App\Program::count() }}</div>
                     <div>Students: {{ App\Student::count() }}</div>
                     <div><a href="{{ route('party.index') }}">Parties</a>: {{ App\Party::count() }}</div>
                     <div>Candidates: {{ App\Candidate::count() }}</div>
