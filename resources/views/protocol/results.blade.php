@@ -72,7 +72,7 @@
                 <th>Vārds</th>
             </tr>
             @foreach($protocol->getDistribution() as $position)
-                <tr>
+                <tr class="{{ $loop->iteration > $protocol->member_count ? 'table-warning' : 'table-success' }}">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $position['candidate']->party->name }} (Nr.{{ $position['candidate']->party->number }})</td>
                     <td>{{ $position['candidate']->student->name }} {{ $position['candidate']->student->surname }}</td>

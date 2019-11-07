@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-md-12 mb-3">
                 <h1>{{ $protocol->faculty->abbreviation }} SP vēlēšanu protokols ({{ $protocol->id }})</h1>
+                <p>Ailītēs droši raksti gan summas cik kopā saskaitīts, gan aritmētiskas izteiksmes, piem., (3+4+4+5), ja rezultātus sauc vairāki cilvēki. Tā kā rakstīt plusus ir čakarīgi, to pašu var uzraksīt tos aizvietojot ar tukšumsimboliem, piem., (3 4 4 5). Sistēma pati izrēķinās summu.</p>
             </div>
             {{ Form::open(['action' => ['ProtocolController@save', $protocol], 'class' => 'col-12']) }}
             <div class="row">
