@@ -42,6 +42,16 @@ Route::prefix('party')->group(function () {
     Route::get('{party}/ballot', 'PartyController@ballot')->name('party.ballot');
 });
 
+Route::prefix('protocol')->group(function () {
+    Route::get('{faculty}/create', 'ProtocolController@create')->name('protocol.create');
+    Route::post('{faculty}/store', 'ProtocolController@store')->name('protocol.store');
+    Route::get('{protocol}/fill', 'ProtocolController@fill')->name('protocol.fill');
+    Route::post('{protocol}/save', 'ProtocolController@save')->name('protocol.save');
+    Route::get('{protocol}/fillCandidates', 'ProtocolController@fillCandidates')->name('protocol.fillCandidates');
+    Route::post('{protocol}/saveCandidates', 'ProtocolController@saveCandidates')->name('protocol.saveCandidates');
+    Route::get('{protocol}/results', 'ProtocolController@results')->name('protocol.results');
+});
+
 //Auth::routes(['register' => false]);
 Auth::routes();
 

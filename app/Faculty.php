@@ -32,6 +32,11 @@ class Faculty extends Model
         return $this->hasMany(Party::class);
     }
 
+    public function protocols() : HasMany
+    {
+        return $this->hasMany(Protocol::class);
+    }
+
     public function scopeByName(Builder $query, string $name) {
         return $query->where('name', $name);
     }

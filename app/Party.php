@@ -14,7 +14,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class Party extends Model
 {
-    protected $fillable = ['name', 'faculty_id', 'number'];
+    protected $fillable = ['name', 'faculty_id', 'number', 'ballots_valid', 'ballots_changed', 'ballots_unchanged'];
 
     public function faculty() : BelongsTo
     {

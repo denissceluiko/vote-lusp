@@ -7,6 +7,7 @@
                 <h1>{{ $faculty->name }} ({{ $faculty->abbreviation }})</h1>
                 <div class="col-12">
                     <a href="{{ route('faculty.studentList', $faculty) }}" class="btn btn-secondary">Generate student list</a>
+                    <a href="{{ route('protocol.create', $faculty) }}" class="btn btn-warning">Generate protocol</a>
                 </div>
                 <table class="table">
                     <thead>
