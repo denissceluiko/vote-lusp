@@ -14,6 +14,7 @@
         "ext-mysqli": "^7.2",
         "ext-xml": "^7.2",
         "ext-zip": "^1.15",
+        "denissimon/formula-parser": "^2.7",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^1.0",

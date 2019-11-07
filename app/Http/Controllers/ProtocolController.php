@@ -6,6 +6,7 @@ use App\Candidate;
 use App\Faculty;
 use App\Party;
 use App\Protocol;
+use FormulaParser\FormulaParser;
 use Illuminate\Http\Request;
 
 class ProtocolController extends Controller
@@ -60,16 +61,22 @@ class ProtocolController extends Controller
 
         foreach($request->get('ballots_valid') as $party_id => $count)
         {
+            $result = (new FormulaParser($count))->getResult();
+            $count = round($result[1]);
             Party::find($party_id)->update(['ballots_valid' => $count]);
         }
 
         foreach($request->get('ballots_changed') as $party_id => $count)
         {
+            $result = (new FormulaParser($count))->getResult();
+            $count = round($result[1]);
             Party::find($party_id)->update(['ballots_changed' => $count]);
         }
 
         foreach($request->get('ballots_unchanged') as $party_id => $count)
         {
+            $result = (new FormulaParser($count))->getResult();
+            $count = round($result[1]);
             Party::find($party_id)->update(['ballots_unchanged' => $count]);
         }
 
@@ -90,11 +97,15 @@ class ProtocolController extends Controller
 
         foreach($request->get('votes_for') as $candidate_id => $count)
         {
+            $result = (new FormulaParser($count))->getResult();
+            $count = round($result[1]);
             Candidate::find($candidate_id)->update(['votes_for' => $count]);
         }
 
         foreach($request->get('votes_against') as $candidate_id => $count)
         {
+            $result = (new FormulaParser($count))->getResult();
+            $count = round($result[1]);
             Candidate::find($candidate_id)->update(['votes_against' => $count]);
         }
 
