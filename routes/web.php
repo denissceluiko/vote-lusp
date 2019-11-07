@@ -43,6 +43,7 @@ Route::prefix('party')->group(function () {
 });
 
 Route::prefix('protocol')->group(function () {
+    Route::get('/', 'ProtocolController@index')->name('protocol.index');
     Route::get('{faculty}/create', 'ProtocolController@create')->name('protocol.create');
     Route::post('{faculty}/store', 'ProtocolController@store')->name('protocol.store');
     Route::get('{protocol}/fill', 'ProtocolController@fill')->name('protocol.fill');

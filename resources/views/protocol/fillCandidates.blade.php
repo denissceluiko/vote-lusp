@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-12"><a href="{{ route('protocol.fill', $protocol) }}">Atpakaļ</a></div>
         <div class="col-md-12">
             <h1>{{ $protocol->faculty->abbreviation }} SP vēlēšanu protokols ({{ $protocol->id }}), kandidāti</h1>
         </div>
