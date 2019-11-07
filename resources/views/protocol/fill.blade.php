@@ -6,7 +6,7 @@
             <div class="col-md-12 mb-3">
                 <h1>{{ $protocol->faculty->abbreviation }} SP vēlēšanu protokols ({{ $protocol->id }})</h1>
             </div>
-            {{ Form::open(['action' => ['ProtocolController@save', $protocol]]) }}
+            {{ Form::open(['action' => ['ProtocolController@save', $protocol], 'class' => 'col-12']) }}
             <div class="row">
                 @foreach($protocol->faculty->parties()->orderBy('number')->get() as $party)
                 <div class="col-md-6 col-xl-4">
