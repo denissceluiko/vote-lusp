@@ -53,7 +53,7 @@ Route::prefix('protocol')->group(function () {
     Route::get('{protocol}/results', 'ProtocolController@results')->name('protocol.results');
 });
 
-//Auth::routes(['register' => false]);
-Auth::routes();
+Auth::routes(['register' => false]);
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

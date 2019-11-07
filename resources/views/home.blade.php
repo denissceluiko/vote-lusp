@@ -18,6 +18,7 @@
                     <div>Students: {{ App\Student::count() }}</div>
                     <div><a href="{{ route('party.index') }}">Parties</a>: {{ App\Party::count() }}</div>
                     <div>Candidates: {{ App\Candidate::count() }}</div>
+                    <div><a href="{{ route('protocol.index') }}">Protocols</a>: {{ App\Protocol::count() }}</div>
                 </div>
             </div>
         </div>

@@ -9,6 +9,16 @@ use Maatwebsite\Excel\Facades\Excel;
 class StudentController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Imports students
      *
      * @param Request $request
