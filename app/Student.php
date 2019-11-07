@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'surname', 'sid', 'faculty_id', 'program_id', 'status'];
+    protected $fillable = ['name', 'surname', 'sid', 'faculty_id', 'program_id', 'status', 'phone', 'email'];
 
     public function program() : BelongsTo
     {
