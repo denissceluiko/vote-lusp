@@ -14,8 +14,8 @@ class AddCandidateProtocolFields extends Migration
     public function up()
     {
         Schema::table('candidates', function (Blueprint $table) {
-            $table->integer('votes_for');
-            $table->integer('votes_against');
+            $table->integer('votes_for')->nullable();
+            $table->integer('votes_against')->nullable();
         });
     }
 
