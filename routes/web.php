@@ -29,6 +29,8 @@ Route::prefix('program')->group(function () {
 });
 
 Route::prefix('student')->group(function () {
+    Route::get('/', 'StudentController@index')->name('student.index');
+    Route::get('{student}', 'StudentController@show')->name('student.show');
     Route::post('import', 'StudentController@import');
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\StudentImport;
+use App\Student;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -16,6 +17,12 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        $students = Student::with(['faculty', 'program'])->orderBy('name')->paginate(100);
+        return view('student.index', compact('students'));
     }
 
     /**
