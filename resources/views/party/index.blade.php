@@ -6,15 +6,15 @@
             <div class="col-md-8">
                 <table class="table">
                     <thead>
-                        <td>Name</td>
-                        <td>Faculty</td>
-                        <td>Size</td>
+                        <td>Nosaukums</td>
+                        <td>Fakultāte</td>
+                        <td>Kandidātu skaits</td>
                     </thead>
                     <tbody>
-                    @foreach(App\Party::all() as $party)
+                    @foreach($parties as $party)
                         <tr>
                             <td><a href="{{ route('party.show', $party) }}">{{ $party->name }}</a></td>
-                            <td>{{$party->faculty->name}}</td>
+                            <td><a href="{{ route('faculty.show', $party->faculty) }}">{{$party->faculty->abbreviation}}</a></td>
                             <td>{{$party->members->count()}}</td>
                         </tr>
                     @endforeach

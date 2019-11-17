@@ -25,6 +25,16 @@ class StudentController extends Controller
         return view('student.index', compact('students'));
     }
 
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'query' => 'required|min:3',
+        ]);
+
+        $students = Student::search($request->get('query'))->with(['faculty', 'program'])->orderBy('name')->paginate(100);
+        return view('student.index', compact('students'));
+    }
+
     /**
      * Imports students
      *

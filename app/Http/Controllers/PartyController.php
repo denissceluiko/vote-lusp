@@ -18,7 +18,8 @@ class PartyController extends Controller
 
     public function index()
     {
-        return view('party.index');
+        $parties = Party::orderBy('name')->get();
+        return view('party.index', compact('parties'));
     }
 
     public function show(Party $party)

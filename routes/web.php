@@ -30,8 +30,9 @@ Route::prefix('program')->group(function () {
 
 Route::prefix('student')->group(function () {
     Route::get('/', 'StudentController@index')->name('student.index');
-    Route::get('{student}', 'StudentController@show')->name('student.show');
+    Route::get('search', 'StudentController@search');
     Route::post('import', 'StudentController@import');
+    Route::get('{student}', 'StudentController@show')->name('student.show');
 });
 
 Route::prefix('candidate')->group(function () {

@@ -30,4 +30,11 @@ class Student extends Model
     {
         return $query->where('sid', $sid);
     }
+
+    public function scopeSearch(Builder $query, string $key)
+    {
+        return $query->where('name', 'like', "%$key%")
+            ->orWhere('surname', 'like', "%$key%")
+            ->orWhere('sid', 'like', "%$key%");
+    }
 }
