@@ -33,7 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('faculty.index')  }}">{{ __('Faculties') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('student.index')  }}">{{ __('Students') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('protocol.index')  }}">{{ __('Protocols') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -49,6 +57,10 @@
                                 </li>
                             @endif
                         @else
+                            {{ Form::open(['action' => 'StudentController@search', 'method' => 'get', 'class' => 'form-inline my-2 my-lg-0']) }}
+                            {{ Form::text('query', request('query'), ['class' => 'form-control mr-sm-2', 'placeholder' => 'Vārds/stud.apl.nr']) }}
+                            {{ Form::submit('Meklēt', ['class' => 'btn btn-outline-primary my-2 my-sm-0 col']) }}
+                            {{ Form::close() }}
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

@@ -4,14 +4,6 @@
     <div class="container">
         <div class="row">
             <h1>Studenti</h1>
-            <div class="col-12">
-                {{ Form::open(['action' => 'StudentController@search', 'method' => 'get', 'class' => 'form-inline mb-3']) }}
-                <div class="form-group">
-                    {{ Form::text('query', request('query'), ['class' => 'form-control']) }}
-                    {{ Form::submit('Meklēt', ['class' => 'btn btn-primary', 'placeholder' => 'Vārds/stud.apl.nr']) }}
-                </div>
-                {{ Form::close() }}
-            </div>
             <div class="col-md-12">
                 <table class="table">
                     <thead>
