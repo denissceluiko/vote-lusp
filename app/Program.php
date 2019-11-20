@@ -67,9 +67,10 @@ class Program extends Model
 
         $students = $this->students()->orderBy('surname')->get();
 
-        $studentList->cloneRow('vno', $students->count() - 1);
+        $studentList->cloneRow('vno', $students->count());
 
         foreach ($students as $key => $student) {
+            $key += 1; // Array nomerates from 0, clones numerate from 1
             $studentList->setValues([
                 "vno#$key" => $key.'.',
                 "voter_name#$key" => $student->name,
