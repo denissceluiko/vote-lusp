@@ -52,4 +52,9 @@ class StudentController extends Controller
         return back();
     }
 
+
+    public function show(Student $student)
+    {
+        return view('student.show', compact('student'));
+    }
 }
