@@ -33,6 +33,7 @@ Route::prefix('student')->group(function () {
     Route::get('search', 'StudentController@search');
     Route::post('import', 'StudentController@import');
     Route::get('{student}', 'StudentController@show')->name('student.show');
+    Route::get('{student}/card', 'StudentController@card')->name('student.card');
 });
 
 Route::prefix('candidate')->group(function () {
@@ -41,9 +42,9 @@ Route::prefix('candidate')->group(function () {
 
 Route::prefix('party')->group(function () {
     Route::get('/', 'PartyController@index')->name('party.index');
-    Route::get('{party}', 'PartyController@show')->name('party.show');
     Route::get('{party}/ballot', 'PartyController@ballot')->name('party.ballot');
 });
+Route::resource('party', 'PartyController', ['except' => ['create', 'destroy']]);
 
 Route::prefix('protocol')->group(function () {
     Route::get('/', 'ProtocolController@index')->name('protocol.index');
