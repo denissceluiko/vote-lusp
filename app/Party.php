@@ -26,6 +26,11 @@ class Party extends Model
         return $this->hasManyThrough(Student::class, Candidate::class, 'party_id', 'id', 'id', 'student_id');
     }
 
+    public function election() : BelongsTo
+    {
+        return $this->belongsTo(Election::class);
+    }
+
     public function candidates() : HasMany
     {
         return $this->hasMany(Candidate::class);
@@ -44,8 +49,7 @@ class Party extends Model
 
         $ballot = new TemplateProcessor(resource_path('templates/Ballot.docx'));
 
-        $ballot->setValue('faculty_name', $this->faculty->abbreviation);
-        $ballot->setValue('year', Carbon::now()->format('Y.'));
+        $ballot->setValue('election_name', $this->election->name);
         $ballot->setValue('party_name', $this->name);
         $ballot->setValue('pn', $this->number);
 
@@ -93,7 +97,7 @@ class Party extends Model
         $path = Storage::putFileAs(
             'ballots',
             new File($ballot->save()),
-            $this->faculty->abbreviation.' - '.$this->name.'.docx',
+            $this->election->name.' - '.$this->name.'.docx',
             'public'
         );
 

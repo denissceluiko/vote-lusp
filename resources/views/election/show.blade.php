@@ -2,20 +2,19 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+        <h1>{{ $election->name }}</h1>
+        <div class="row">
+            <div class="col-md-12">
                 <table class="table">
                     <thead>
-                        <td>Nosaukums</td>
-                        <td>Vēlēšanas</td>
-                        <td>Kandidātu skaits</td>
+                    <th>Party</th>
+                    <th>Candidates</th>
                     </thead>
                     <tbody>
-                    @foreach($parties as $party)
+                    @foreach($election->parties as $party)
                         <tr>
                             <td><a href="{{ route('party.show', $party) }}">{{ $party->name }}</a></td>
-                            <td><a href="{{ route('faculty.show', $party->election) }}">{{$party->election->name}}</a></td>
-                            <td>{{$party->members->count()}}</td>
+                            <td>{{ $party->candidates()->count() }}</td>
                         </tr>
                     @endforeach
                     </tbody>

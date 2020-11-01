@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -22,9 +23,9 @@ class Faculty extends Model
         return $this->hasMany(Program::class);
     }
 
-    public function students() : HasMany
+    public function students() : HasManyThrough
     {
-        return $this->hasMany(Student::class);
+        return $this->hasManyThrough(Student::class, Program::class);
     }
 
     public function parties() : HasMany

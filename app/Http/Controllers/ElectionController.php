@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Election;
 use App\Imports\ElectionImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ElectionController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        $elections = Election::all();
+        return view('election.index', compact('elections'));
+    }
+
+    public function show(Election $election)
+    {
+        return view('election.show', compact('election'));
+    }
+
     /**
      * Imports faculties
      *
