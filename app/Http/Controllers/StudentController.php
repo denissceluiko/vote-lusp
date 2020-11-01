@@ -21,7 +21,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = Student::with(['faculty', 'program'])->orderBy('name')->paginate(100);
+        $students = Student::with(['program'])->orderBy('name')->paginate(100);
         return view('student.index', compact('students'));
     }
 
@@ -31,7 +31,7 @@ class StudentController extends Controller
             'query' => 'required|min:3',
         ]);
 
-        $students = Student::search($request->get('query'))->with(['faculty', 'program'])->orderBy('name')->paginate(100);
+        $students = Student::search($request->get('query'))->with(['program'])->orderBy('name')->paginate(100);
         return view('student.index', compact('students'));
     }
 

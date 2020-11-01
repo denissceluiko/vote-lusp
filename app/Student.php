@@ -16,11 +16,6 @@ class Student extends Model
         return $this->belongsTo(Program::class);
     }
 
-    public function faculty() : BelongsTo
-    {
-        return $this->belongsTo(Faculty::class);
-    }
-
     public function party() : HasOneThrough
     {
         return $this->hasOneThrough(Party::class, Candidate::class);
