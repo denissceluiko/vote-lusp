@@ -22,6 +22,12 @@ Route::prefix('faculty')->group(function () {
     Route::get('{faculty}/studentList', 'FacultyController@studentList')->name('faculty.studentList');
 });
 
+Route::prefix('election')->group(function () {
+    Route::get('/', 'ElectionController@index')->name('election.index');
+    Route::post('import', 'ElectionController@import');
+    Route::get('{election}', 'ElectionController@show')->name('election.show');
+});
+
 Route::resource('program', 'ProgramController', ['only' => ['index', 'show']]);
 Route::prefix('program')->group(function () {
     Route::post('import', 'ProgramController@import');

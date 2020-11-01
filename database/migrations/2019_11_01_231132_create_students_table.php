@@ -20,6 +20,8 @@ class CreateStudentsTable extends Migration
             $table->string('sid');
             $table->bigInteger('program_id')->nullable();
             $table->string('status');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

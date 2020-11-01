@@ -17,10 +17,10 @@ class CreatePartiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('number')->nullable();
-            $table->bigInteger('faculty_id');
+            $table->bigInteger('election_id');
             $table->timestamps();
 
-            $table->unique(['name', 'faculty_id']);
+            $table->unique(['name', 'election_id']);
         });
     }
 

@@ -37,6 +37,11 @@ class Faculty extends Model
         return $this->hasMany(Protocol::class);
     }
 
+    public function elections() : HasMany
+    {
+        return $this->hasMany(Election::class);
+    }
+
     public function scopeByName(Builder $query, string $name) {
         return $query->where('name', $name);
     }

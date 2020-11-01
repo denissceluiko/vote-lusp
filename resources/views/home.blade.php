@@ -14,6 +14,7 @@
                         </div>
                     @endif
                     <div><a href="{{ route('faculty.index') }}">Faculties</a>: {{ App\Faculty::count() }}</div>
+                    <div><a href="{{ route('election.index') }}">Elections</a>: {{ App\Election::count() }}</div>
                     <div><a href="{{ route('program.index') }}">Programs</a>: {{ App\Program::count() }}</div>
                     <div><a href="{{ route('student.index') }}">Students</a>: {{ App\Student::count() }}</div>
                     <div><a href="{{ route('party.index') }}">Parties</a>: {{ App\Party::count() }}</div>
@@ -31,6 +32,19 @@
                             {{ Form::file('faculty_file') }}
                         </div>
                         {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
+                    {{ Form::close() }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Import elections</div>
+                <div class="card-body">
+                    {{ Form::open(['action' => 'ElectionController@import', 'files' => true]) }}
+                    <div class="form-group">
+                        {{ Form::file('election_file') }}
+                    </div>
+                    {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
                     {{ Form::close() }}
                 </div>
             </div>

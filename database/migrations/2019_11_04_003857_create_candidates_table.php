@@ -17,8 +17,6 @@ class CreateCandidatesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('party_id')->nullable();
             $table->bigInteger('student_id')->nullable();
-            $table->string('email');
-            $table->string('phone');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveCandidateContactInfo extends Migration
+class CreateElectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class RemoveCandidateContactInfo extends Migration
      */
     public function up()
     {
-        Schema::table('candidates', function (Blueprint $table) {
-            $table->dropColumn(['email','phone']);
+        Schema::create('elections', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('name_short');
+            $table->bigInteger('faculty_id')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,9 +29,6 @@ class RemoveCandidateContactInfo extends Migration
      */
     public function down()
     {
-        Schema::table('candidates', function (Blueprint $table) {
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-        });
+        Schema::dropIfExists('elections');
     }
 }

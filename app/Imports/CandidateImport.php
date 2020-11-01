@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Election;
 use App\Faculty;
 use App\Party;
 use App\Student;
@@ -18,7 +19,7 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
 {
     use SkipsFailures, SkipsErrors;
 
-    protected $faculty = null;
+    protected $election = null;
     protected $party = null;
 
     /**
@@ -28,13 +29,12 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
     {
         $collection->each(function ($candidate) {
             $candidate = array_map('trim', iterator_to_array($candidate));
-            $faculty = $this->getFaculty($candidate['faculty']);
+            $election = $this->getElection($candidate['faculty']);
             $party = $this->getParty($candidate['party']);
 
             if (!$this->party) {
-                $party = $this->party = Party::create([
+                $party = $this->party = $election->parties()->create([
                     'name' => $candidate['party'],
-                    'faculty_id' => $faculty->id,
                     'number' => $candidate['party_number'] ?? null,
                 ]);
             }
@@ -55,13 +55,13 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
      * @param string $abbreviation
      * @return Faculty|null
      */
-    public function getFaculty(string $abbreviation)
+    public function getElection(string $faculty)
     {
-        if ($this->faculty == null || $this->faculty->abbreviation != $abbreviation)
+        if ($this->election == null || $this->election->faculty->abbreviation != $faculty)
         {
-            $this->faculty = Faculty::byAbbreviation($abbreviation)->first();
+            $this->election = Faculty::byAbbreviation($faculty)->first()->elections()->first();
         }
-        return $this->faculty;
+        return $this->election;
     }
 
     public function getParty(string $name)
