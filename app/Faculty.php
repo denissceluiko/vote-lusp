@@ -12,7 +12,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class Faculty extends Model
 {
-    protected $fillable = ['name', 'abbreviation'];
+    protected $fillable = ['name', 'name_eng', 'abbreviation'];
 
     /**
      * @return HasMany

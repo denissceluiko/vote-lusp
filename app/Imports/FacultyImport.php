@@ -20,6 +20,7 @@ class FacultyImport implements ToModel, WithHeadingRow, SkipsOnError
     {
         return new Faculty([
             'name' => trim($row['name']),
+            'name_eng' => trim($row['name_eng']),
             'abbreviation' => trim($row['abbreviation']),
         ]);
     }

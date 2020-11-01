@@ -34,25 +34,19 @@ class StudentImport
     {
 
         foreach ($collection as $row) {
-            $faculty = $this->getFaculty($row['faculty']);
-            $program = $this->getProgram($row['program_code']);
+            $program = $this->getProgram($row);
 
-            if ($faculty == null) {
-                Log::warning("Faculty {$row['faculty']} not found.");
-                continue;
-            }
 
             if ($program == null) {
-                Log::warning("Program {$row['program_code']} of {$row['faculty']} for ^{$row['student_id']}# not found.");
+                $program = $this->createProgram($row);
             }
 
-            $faculty->students()->updateOrCreate([
+            $program->students()->updateOrCreate([
                 'sid' => trim($row['student_id'])
             ], [
                 'name' => trim($row['name']),
                 'surname' => trim($row['surname']),
                 'status' => trim($row['status']),
-                'program_id' => $program->id ?? null,
             ]);
         }
     }
@@ -71,16 +65,35 @@ class StudentImport
     }
 
     /**
-     * @param string $code
+     * @param array $row
      * @return Program|null
      */
-    public function getProgram(string $code)
+    public function getProgram($row)
     {
-        if ($this->program == null || $this->program->code != $code)
+        if ($this->program == null || $this->program->code != $row['program_code'])
         {
-            $this->program = Program::byCode($code)->first();
+            $this->program = Program::byCode($row['program_code'])->first();
+        }
+        if ($this->program == null)
+        {
+            $this->program = Program::byName($row['program_name'])->first();
         }
         return $this->program;
+    }
+
+    public function createProgram($row)
+    {
+        $faculty = $this->getFaculty($row['faculty_name']);
+
+        if ($faculty == null) {
+            Log::warning("Faculty {$row['faculty_name']} not found.");
+            return;
+        }
+
+        return $faculty->programs()->create([
+            'code' => trim($row['program_code']),
+            'name' => trim($row['program_name']),
+        ]);
     }
 
     public function batchSize(): int

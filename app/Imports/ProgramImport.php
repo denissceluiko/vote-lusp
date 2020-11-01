@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Faculty;
+use App\Program;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -22,16 +23,41 @@ class ProgramImport implements ToCollection, WithHeadingRow, SkipsOnError, WithB
     {
         $faculty = new Faculty;
         foreach ($collection as $row) {
-            if ($faculty->name != $row['faculty']) {
-                $faculty = Faculty::byName($row['faculty'])->first();
+            if (empty($row['faculty'])) {
+                $this->tryUpdate($row);
+                continue;
             }
+
+            if (!$faculty || $faculty->abbreviation != $row['faculty']) {
+                $faculty = Faculty::byAbbreviation($row['faculty'])->first();
+            }
+
+            if (!$faculty) {
+                $this->tryUpdate($row);
+                continue;
+            }
+
             $faculty->programs()->updateOrCreate([
                 'code' => trim($row['code'])
                 ],[
                 'lri' => trim($row['lri']),
-                'name' => trim($row['name'])
+                'name' => trim($row['name']),
+                'name_eng' => trim($row['name_eng']),
             ]);
         }
+    }
+
+    public function tryUpdate($row)
+    {
+        if (empty($row['code'])) return;
+        $program = Program::byCode($row['code'])->first();
+
+        if (!$program) return;
+        $program->update([
+            'lri' => trim($row['lri']),
+            'name' => trim($row['name']),
+            'name_eng' => trim($row['name_eng']),
+        ]);
     }
 
     /**

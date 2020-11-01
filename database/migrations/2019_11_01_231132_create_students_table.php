@@ -18,7 +18,6 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('sid');
-            $table->bigInteger('faculty_id');
             $table->bigInteger('program_id')->nullable();
             $table->string('status');
             $table->timestamps();

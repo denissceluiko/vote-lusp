@@ -16,7 +16,8 @@ class CreateFacultiesTable extends Migration
         Schema::create('faculties', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->string('abbreviation')->unique()->nullable();
+            $table->string('name_eng')->nullable();
+            $table->string('abbreviation')->unique();
             $table->timestamps();
         });
     }

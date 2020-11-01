@@ -16,8 +16,9 @@ class CreateProgramsTable extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code')->unique();
-            $table->string('lri');
+            $table->string('lri')->nullable();
             $table->string('name');
+            $table->string('name_eng')->nullable();
             $table->bigInteger('faculty_id');
             $table->timestamps();
         });

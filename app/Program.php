@@ -13,7 +13,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class Program extends Model
 {
-    protected $fillable = ['name', 'lri', 'code'];
+    protected $fillable = ['name', 'name_eng', 'lri', 'code'];
 
     /**
      * @return BelongsTo
