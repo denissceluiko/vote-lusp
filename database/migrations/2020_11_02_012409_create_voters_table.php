@@ -18,6 +18,8 @@ class CreateVotersTable extends Migration
             $table->bigInteger('election_id');
             $table->bigInteger('student_id');
             $table->timestamps();
+
+            $table->unique(['election_id', 'student_id']);
         });
     }
 

@@ -45,4 +45,23 @@ class Election extends Model
     {
         return $this->voters()->student($student)->count() ? true : false;
     }
+
+    public function addVoter(Student $student)
+    {
+        if ($this->hasVoter($student)) return false;
+
+        $ballot = $this->getUnusedBallot();
+
+        $voter = $this->voters()->create([
+            'student_id' => $student->id,
+            'election_id' => $this->id,
+        ]);
+
+        $ballot->assign($voter);
+    }
+
+    private function getUnusedBallot() : Ballot
+    {
+        return $this->ballots()->unused()->first();
+    }
 }
