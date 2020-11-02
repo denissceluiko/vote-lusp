@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -34,6 +35,11 @@ class Election extends Model
     public function ballots() : HasMany
     {
         return $this->hasMany(Ballot::class);
+    }
+
+    public function votingTimes() : HasMany
+    {
+        return $this->hasMany(VotingTime::class);
     }
 
     public function generateBallots()
@@ -85,6 +91,6 @@ class Election extends Model
 
     public function isOpen()
     {
-        return true; // TODO: Implement
+        return $this->votingTimes(Carbon::now())->exists();
     }
 }
