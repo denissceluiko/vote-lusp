@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('voter.create');
 });
 
 Route::prefix('faculty')->group(function () {
@@ -26,6 +26,12 @@ Route::prefix('election')->group(function () {
     Route::get('/', 'ElectionController@index')->name('election.index');
     Route::post('import', 'ElectionController@import');
     Route::get('{election}', 'ElectionController@show')->name('election.show');
+});
+
+Route::prefix('voter')->group(function () {
+//    Route::get('/', 'ElectionController@index')->name('election.index');
+    Route::post('register', 'VoterController@register');
+//    Route::get('{election}', 'ElectionController@show')->name('election.show');
 });
 
 Route::resource('program', 'ProgramController', ['only' => ['index', 'show']]);

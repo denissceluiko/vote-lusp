@@ -21,6 +21,7 @@
 </head>
 <body>
     <div id="app">
+        @auth
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
@@ -83,6 +84,7 @@
                 </div>
             </div>
         </nav>
+        @endauth
 
         <main class="py-4">
             @yield('content')
