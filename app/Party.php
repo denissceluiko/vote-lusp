@@ -36,6 +36,11 @@ class Party extends Model
         return $this->hasMany(Candidate::class);
     }
 
+    public function hasCandidate(Student $student)
+    {
+        return $this->candidates()->where('student_id', $student->id)->exists();
+    }
+
     public function scopeByName(Builder $query, string $name)
     {
         return $query->where('name', $name);

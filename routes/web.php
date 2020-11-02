@@ -29,10 +29,19 @@ Route::prefix('election')->group(function () {
 });
 
 Route::prefix('voter')->group(function () {
-//    Route::get('/', 'ElectionController@index')->name('election.index');
     Route::post('register', 'VoterController@register');
-//    Route::get('{election}', 'ElectionController@show')->name('election.show');
+    Route::get('register', function () {
+        return redirect('/');
+    });
 });
+
+Route::prefix('vote')->group(function () {
+    Route::get('{ballot}', 'BallotController@show');
+    Route::post('{ballot}', 'BallotController@auth');
+    Route::post('{ballot}/select', 'BallotController@selectParty');
+    Route::post('{ballot}/vote', 'BallotController@vote');
+});
+
 
 Route::resource('program', 'ProgramController', ['only' => ['index', 'show']]);
 Route::prefix('program')->group(function () {

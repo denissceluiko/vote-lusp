@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Election extends Model
 {
@@ -18,6 +19,11 @@ class Election extends Model
     public function parties() : HasMany
     {
         return $this->hasMany(Party::class);
+    }
+
+    public function candidates() : HasManyThrough
+    {
+        return $this->hasManyThrough(Candidate::class, Party::class);
     }
 
     public function voters() : HasMany
@@ -43,7 +49,12 @@ class Election extends Model
 
     public function hasVoter(Student $student)
     {
-        return $this->voters()->student($student)->count() ? true : false;
+        return $this->voters()->student($student)->exists();
+    }
+
+    public function getVoter(Student $student) : Voter
+    {
+        return $this->voters()->student($student)->first();
     }
 
     public function addVoter(Student $student)
@@ -58,10 +69,22 @@ class Election extends Model
         ]);
 
         $ballot->assign($voter);
+        $ballot->send();
+    }
+
+    public function attemptResending(Voter $voter)
+    {
+        if (!$voter->ballot) return false;
+        return $voter->ballot->send();
     }
 
     private function getUnusedBallot() : Ballot
     {
         return $this->ballots()->unused()->first();
+    }
+
+    public function isOpen()
+    {
+        return true; // TODO: Implement
     }
 }

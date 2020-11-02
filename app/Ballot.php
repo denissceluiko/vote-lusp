@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Notifications\BallotSent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class Ballot extends Model
@@ -50,6 +53,32 @@ class Ballot extends Model
         return $this;
     }
 
+    public function vote($vote)
+    {
+        $this->voter()->dissociate();
+        $this->status = self::$statuses['cast'];
+        $this->vote = json_encode($vote);
+        $this->save();
+        return $this;
+    }
+
+    public function send()
+    {
+        if (!$this->isAssigned()) return false;
+
+        Notification::route('mail', $this->formatRecipient())
+            ->notify(new BallotSent($this));
+
+        Log::info("Ballot sent to {$this->voter->student->sid}");
+        return true;
+    }
+
+    protected function formatRecipient()
+    {
+        return $this->voter->student->sid.'@students.lu.lv';
+    }
+
+
     public static function generate(Election $election)
     {
         $election->ballots()->create([
@@ -57,8 +86,45 @@ class Ballot extends Model
         ]);
     }
 
+    public function verifyPassword($password)
+    {
+        return $password === Crypt::decryptString($this->password);
+    }
+
+    public function verifyParty(Party $party)
+    {
+        return $party->election->id === $this->election->id;
+    }
+
+    public function verifyCandidates($candidates)
+    {
+        if (empty($candidates)) return true;
+        if (!is_array($candidates)) return false;
+
+        foreach ($candidates as $candidate => $v) {
+            if (!$this->election->candidates()->where('student_id', $candidate)->exists()) return false;
+        }
+
+        return true;
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function isViewable()
+    {
+        return $this->status != self::$statuses['generated'];
+    }
+
+    public function isAssigned()
+    {
+        return $this->status == self::$statuses['assigned'];
+    }
+
+    public function isCast()
+    {
+        return $this->status == self::$statuses['cast'];
     }
 }

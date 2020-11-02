@@ -14,15 +14,15 @@
                         <div class="form-group">
                             {{ Form::label('student_id', 'Studenta apliecības numurs', ['class' => '']) }}
                             {{ Form::text('student_id', null, ['class' => 'form-control mb-3', 'required']) }}
-                            @if ($errors->has('student_id'))
-                                <small class="form-text text-danger">{{ $errors->first('email') }}</small>
-                            @endif
+                            @error('student_id')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         {{ Form::submit('Saņemt', ['class' => 'form-control btn btn-primary']) }}
                         {{ Form::close() }}
                     </div>
                 </div>
-                <p>Neskaidrību gadījumā droši raksti LU SP Vēlēšanu komisijai uz <a href="mailto:vk@lusp.lv">vk@lusp.lv</a> </p>
+                @include('snippets.helpdesk')
             </div>
         </div>
     </div>
