@@ -29,6 +29,7 @@ Route::prefix('election')->group(function () {
 });
 
 Route::prefix('voter')->group(function () {
+    Route::get('create', 'VoterController@create');
     Route::post('register', 'VoterController@register');
     Route::get('register', function () {
         return redirect('/');

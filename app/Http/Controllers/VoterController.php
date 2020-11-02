@@ -27,7 +27,7 @@ class VoterController extends Controller
         }
 
         if (!$election->isOpen()) {
-            return view('election.schedule');
+            return view('voter.registred'); // TODO: give a proper error message
         }
 
         if ($election->hasVoter($student)) {
