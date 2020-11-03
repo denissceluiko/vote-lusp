@@ -94,6 +94,11 @@ class Election extends Model
         return $this->votingTimes()->open(Carbon::now())->exists();
     }
 
+    public function isFinished()
+    {
+        return $this->votingTimes()->upcoming(Carbon::now())->doesntExist();
+    }
+
     public function nextVotingTime()
     {
         return $this->votingTimes()->upcoming(Carbon::now())->first();

@@ -26,7 +26,7 @@ class VoterController extends Controller
             return view('voter.registred');
         }
 
-        if (!$election->isOpen()) {
+        if ($election->isFinished()) {
             return view('voter.registred'); // TODO: give a proper error message
         }
 
