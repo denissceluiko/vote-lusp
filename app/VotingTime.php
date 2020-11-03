@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class VotingTime extends Model
 {
     protected $fillable = ['start_at', 'end_at'];
+    public $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
 
     public function election() : BelongsTo
     {
@@ -21,6 +25,13 @@ class VotingTime extends Model
         return $query->where([
             ['start_at', '<=', $time],
             ['end_at', '>', $time],
+        ]);
+    }
+
+    public function scopeUpcoming(Builder $query, Carbon $time)
+    {
+        return $query->where([
+            ['start_at', '>', $time],
         ]);
     }
 }

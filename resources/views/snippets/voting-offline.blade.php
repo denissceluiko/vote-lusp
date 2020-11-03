@@ -1,0 +1,1 @@
+<div class="alert alert-danger">Šobrīd var tikai apskatīt kandidātu sarakstus. {{ $ballot->election->nextVotingTimeFormatted('Tuvākais balsošanas laiks no %from lídz %to', 'd.m.Y. H:i', 'Balsošana ir noslēgusies.') }}</div>

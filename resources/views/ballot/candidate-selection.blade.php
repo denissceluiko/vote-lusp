@@ -33,7 +33,11 @@
                 @endforeach
                 </tbody>
             </table>
-            {{ Form::submit('Balsot par šo sarakstu', ['class' => 'form-control btn btn-primary']) }}
+            @if($ballot->election->isOpen())
+                {{ Form::submit('Balsot par šo sarakstu', ['class' => 'form-control btn btn-primary']) }}
+            @else
+                @include('snippets.voting-offline')
+            @endif
             {{ Form::close() }}
             </div>
         </div>

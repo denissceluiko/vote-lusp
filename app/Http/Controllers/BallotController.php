@@ -75,6 +75,10 @@ class BallotController extends Controller
             return redirect()->action('BallotController@show', $ballot);
         }
 
+        if (!$ballot->election->isOpen()) {
+            return view('ballot.voting-closed', compact('ballot'));
+        }
+
         $vote = [
             'party_id' => $party->id,
             'candidates' => $request->get('candidates'),

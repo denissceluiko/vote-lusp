@@ -93,4 +93,25 @@ class Election extends Model
     {
         return $this->votingTimes()->open(Carbon::now())->exists();
     }
+
+    public function nextVotingTime()
+    {
+        return $this->votingTimes()->upcoming(Carbon::now())->first();
+    }
+
+    /**
+     * Format: use %from and %to
+     *
+     * @param string $format
+     * @param string $dateformat
+     */
+    public function nextVotingTimeFormatted(string $format, string $dateformat, string $pollsClosed)
+    {
+        $time = $this->nextVotingTime();
+        if (!$time) return $pollsClosed;
+
+        $format = str_replace('%from', $time->start_at->format($dateformat), $format);
+        $format = str_replace('%to', $time->end_at->format($dateformat), $format);
+        return $format;
+    }
 }
