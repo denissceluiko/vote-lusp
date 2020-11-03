@@ -91,6 +91,6 @@ class Election extends Model
 
     public function isOpen()
     {
-        return $this->votingTimes(Carbon::now())->exists();
+        return $this->votingTimes()->open(Carbon::now())->exists();
     }
 }
