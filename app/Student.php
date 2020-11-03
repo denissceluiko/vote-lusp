@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'surname', 'sid', 'faculty_id', 'program_id', 'status', 'phone', 'email'];
+    protected $fillable = ['name', 'surname', 'sid', 'faculty_id', 'program_id', 'status', 'phone', 'email', 'ballot_emails'];
 
     public function program() : BelongsTo
     {
@@ -31,5 +31,11 @@ class Student extends Model
         return $query->where('name', 'like', "%$key%")
             ->orWhere('surname', 'like', "%$key%")
             ->orWhere('sid', 'like', "%$key%");
+    }
+
+    public function getBallotEmail()
+    {
+        $emails = explode(';',$this->ballot_emails);
+        return $emails[0] ?? $this->sid.'@.students.lu.lv';
     }
 }

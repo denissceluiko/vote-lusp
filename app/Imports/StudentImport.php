@@ -41,12 +41,15 @@ class StudentImport
                 $program = $this->createProgram($row);
             }
 
+            $emails = $this->resolveEmails($row);
+
             $program->students()->updateOrCreate([
                 'sid' => trim($row['student_id'])
             ], [
                 'name' => trim($row['name']),
                 'surname' => trim($row['surname']),
                 'status' => trim($row['status']),
+                'ballot_emails' => $this->resolveEmails($row),
             ]);
         }
     }
@@ -96,11 +99,44 @@ class StudentImport
         ]);
     }
 
+    public function resolveEmails($row)
+    {
+        $primary = strlen($row['email_primary']) ? array_reverse(explode(' ', $row['email_primary'])) : [];
+        $emails = array_unique(array_merge($primary, [$row['email_secondary'], $row['email_tertiary']])); // primary, secondary, tertiary
+
+        $emails = array_filter($emails, function ($email) {
+            return !empty($email);
+        });
+        $emails = array_values($emails);
+
+        $emails[0] = $this->formatPrimaryEmail($emails[0]);
+        return implode(';', $emails);
+    }
+
+
+    public function formatPrimaryEmail(string $email)
+    {
+        // options -> aa00000@students.lu.lv, aa00000@lu.lv, name.surname@lu.lv, username@lu.lv, smth else
+        $allowedDomains = [
+            'students.lu.lv',
+            'lu.lv'
+        ];
+
+        list($user, $domain) = explode('@', $email);
+
+        if (!in_array($domain, $allowedDomains)) return $email; // not LU domain
+        if ($domain == 'students.lu.lv') return $email; // @students.lu.lv
+
+        preg_match('/^[a-z]{2}[0-9]{5}$/', $user, $matches); // aa00000@lu.lv
+        if (!empty($matches)) return $user.'@students.lu.lv';
+
+        return $email; // other @lu.lv emails
+    }
+
     public function batchSize(): int
     {
         return 200;
     }
-
     public function chunkSize(): int
     {
         return 200;

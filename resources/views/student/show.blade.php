@@ -22,6 +22,8 @@
                         <dt class="col-6">Telefons</dt>
                         <dd class="col-6">{{ $student->phone }}</dd>
                         @endif
+                        <dt class="col-6">LU e-pasti</dt>
+                        <dd class="col-6">{{ str_replace(';', ' ',$student->ballot_emails) }}</dd>
                     </dl>
                 </div>
             </div>
