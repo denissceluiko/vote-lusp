@@ -36,6 +36,16 @@ class Ballot extends Model
         return $query->where('status', self::$statuses['generated']);
     }
 
+    public function scopeUsed(Builder $query)
+    {
+        return $query->where('status', '!=', self::$statuses['generated']);
+    }
+
+    public function scopeStatus(Builder $query, string $status)
+    {
+        return $query->where('status', self::$statuses[$status]);
+    }
+
     public function assign(Voter $voter)
     {
         $this->voter()->associate($voter);
