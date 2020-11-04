@@ -49,6 +49,7 @@ class BallotSent extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject($this->ballot->election->name)
+            ->cc($this->ballot->formatCCRecipients())
             ->greeting('Tavas vēlēšanu zīmes parole')
             ->line(Crypt::decryptString($this->ballot->password))
             ->action('Balsot', action('BallotController@show', $this->ballot))
