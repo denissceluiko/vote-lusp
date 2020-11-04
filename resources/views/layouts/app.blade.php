@@ -35,7 +35,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.faculty.index')  }}">{{ __('Faculties') }}</a>
+                            <a class="nav-link" href="{{ route('admin.election.index')  }}">{{ __('Elections') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.student.index')  }}">{{ __('Students') }}</a>

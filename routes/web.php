@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::prefix('election')->group(function () {
         Route::get('/', 'ElectionController@index')->name('election.index');
         Route::post('import', 'ElectionController@import');
+        Route::get('{election}/voters', 'ElectionController@voters')->name('election.voters');
         Route::get('{election}', 'ElectionController@show')->name('election.show');
     });
 
@@ -48,16 +49,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::prefix('program')->group(function () {
         Route::post('import', 'ProgramController@import');
         Route::get('{program}/studentList', 'ProgramController@studentList')->name('program.studentList');
-    });
-});
-
-
-
-Route::prefix('voter')->group(function () {
-    Route::get('create', 'VoterController@create');
-    Route::post('register', 'VoterController@register');
-    Route::get('register', function () {
-        return redirect('/');
     });
 });
 

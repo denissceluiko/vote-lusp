@@ -18,7 +18,7 @@
                         <td>{{ $election->ballots()->count() }}</td>
                     </tr>
                     <tr>
-                        <td>Voters registred</td>
+                        <td><a href="{{ route('admin.election.voters', $election) }}">Voters registred</a></td>
                         <td>{{ $election->voters()->count() }}</td>
                     </tr>
                     <tr>

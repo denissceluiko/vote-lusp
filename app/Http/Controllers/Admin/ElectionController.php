@@ -48,4 +48,10 @@ class ElectionController extends Controller
 
         return back();
     }
+
+    public function voters(Election $election)
+    {
+        $election->load(['voters', 'voters.student']);
+        return view('election.voters', compact('election'));
+    }
 }
