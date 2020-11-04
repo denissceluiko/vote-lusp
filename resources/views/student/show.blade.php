@@ -9,9 +9,9 @@
                 <div class="col-12 mt-4">
                     <dl class="row">
                         <dt class="col-6">Fakultāte</dt>
-                        <dd class="col-6"><a href="{{ route('faculty.show', $student->program->faculty) }}">{{ $student->program->faculty->name }}</a></dd>
+                        <dd class="col-6"><a href="{{ route('admin.faculty.show', $student->program->faculty) }}">{{ $student->program->faculty->name }}</a></dd>
                         <dt class="col-6">Prorgramma</dt>
-                        <dd class="col-6"><a href="{{ route('program.show', $student->program) }}">{{ $student->program->name }}</a></dd>
+                        <dd class="col-6"><a href="{{ route('admin.program.show', $student->program) }}">{{ $student->program->name }}</a></dd>
                         <dt class="col-6">Statuss</dt>
                         <dd class="col-6">{{ $student->status }}</dd>
                         @if($student->email)

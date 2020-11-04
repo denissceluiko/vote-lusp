@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Imports\CandidateImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

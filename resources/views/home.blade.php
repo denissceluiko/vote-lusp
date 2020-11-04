@@ -13,11 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div><a href="{{ route('faculty.index') }}">Faculties</a>: {{ App\Faculty::count() }}</div>
-                    <div><a href="{{ route('election.index') }}">Elections</a>: {{ App\Election::count() }}</div>
-                    <div><a href="{{ route('program.index') }}">Programs</a>: {{ App\Program::count() }}</div>
-                    <div><a href="{{ route('student.index') }}">Students</a>: {{ App\Student::count() }}</div>
-                    <div><a href="{{ route('party.index') }}">Parties</a>: {{ App\Party::count() }}</div>
+                    <div><a href="{{ route('admin.faculty.index') }}">Faculties</a>: {{ App\Faculty::count() }}</div>
+                    <div><a href="{{ route('admin.election.index') }}">Elections</a>: {{ App\Election::count() }}</div>
+                    <div><a href="{{ route('admin.program.index') }}">Programs</a>: {{ App\Program::count() }}</div>
+                    <div><a href="{{ route('admin.student.index') }}">Students</a>: {{ App\Student::count() }}</div>
+                    <div><a href="{{ route('admin.party.index') }}">Parties</a>: {{ App\Party::count() }}</div>
                     <div>Candidates: {{ App\Candidate::count() }}</div>
                     <div><a href="{{ route('protocol.index') }}">Protocols</a>: {{ App\Protocol::count() }}</div>
                 </div>
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-header">Import faculties</div>
                 <div class="card-body">
-                    {{ Form::open(['action' => 'FacultyController@import', 'files' => true]) }}
+                    {{ Form::open(['action' => 'Admin\FacultyController@import', 'files' => true]) }}
                         <div class="form-group">
                             {{ Form::file('faculty_file') }}
                         </div>
@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-header">Import elections</div>
                 <div class="card-body">
-                    {{ Form::open(['action' => 'ElectionController@import', 'files' => true]) }}
+                    {{ Form::open(['action' => 'Admin\ElectionController@import', 'files' => true]) }}
                     <div class="form-group">
                         {{ Form::file('election_file') }}
                     </div>
@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="card-header">Import programs</div>
                 <div class="card-body">
-                    {{ Form::open(['action' => 'ProgramController@import', 'files' => true]) }}
+                    {{ Form::open(['action' => 'Admin\ProgramController@import', 'files' => true]) }}
                         <div class="form-group">
                             {{ Form::file('program_file') }}
                         </div>
@@ -66,7 +66,7 @@
             <div class="card">
                 <div class="card-header">Import students</div>
                 <div class="card-body">
-                    {{ Form::open(['action' => 'StudentController@import', 'files' => true]) }}
+                    {{ Form::open(['action' => 'Admin\StudentController@import', 'files' => true]) }}
                         <div class="form-group">
                             {{ Form::file('student_file') }}
                         </div>
@@ -79,7 +79,7 @@
             <div class="card">
                 <div class="card-header">Import candidates</div>
                 <div class="card-body">
-                    {{ Form::open(['action' => 'CandidateController@import', 'files' => true]) }}
+                    {{ Form::open(['action' => 'Admin\CandidateController@import', 'files' => true]) }}
                     <div class="form-group">
                         {{ Form::file('candidate_file') }}
                     </div>

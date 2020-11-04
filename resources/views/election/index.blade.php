@@ -16,13 +16,13 @@
                     <tbody>
                     @foreach($elections as $election)
                         <tr>
-                            <td><a href="{{ route('election.show', $election) }}">{{ $election->name }}</a></td>
+                            <td><a href="{{ route('admin.election.show', $election) }}">{{ $election->name }}</a></td>
                             <td>{{ $election->parties()->count() }}</td>
                             <td>{{ $election->ballots()->count() }}</td>
                             <td>{{ $election->voters->count() }}</td>
                             <td>
                             @if($election->faculty)
-                                <a href="{{ route('faculty.show', $election->faculty) }}">{{ $election->faculty->abbreviation }}</a>
+                                <a href="{{ route('admin.faculty.show', $election->faculty) }}">{{ $election->faculty->abbreviation }}</a>
                             @else
                                 -
                             @endif

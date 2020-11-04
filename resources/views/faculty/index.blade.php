@@ -12,7 +12,7 @@
                     <tbody>
                     @foreach(App\Faculty::all() as $faculty)
                         <tr>
-                            <td><a href="{{ route('faculty.show', $faculty) }}">{{ $faculty->name }}</a></td>
+                            <td><a href="{{ route('admin.faculty.show', $faculty) }}">{{ $faculty->name }}</a></td>
                             <td>{{$faculty->abbreviation}}</td>
                         </tr>
                     @endforeach

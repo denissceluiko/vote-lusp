@@ -13,8 +13,8 @@
                     <tbody>
                     @foreach($parties as $party)
                         <tr>
-                            <td><a href="{{ route('party.show', $party) }}">{{ $party->name }}</a></td>
-                            <td><a href="{{ route('faculty.show', $party->election) }}">{{$party->election->name}}</a></td>
+                            <td><a href="{{ route('admin.party.show', $party) }}">{{ $party->name }}</a></td>
+                            <td><a href="{{ route('admin.faculty.show', $party->election) }}">{{$party->election->name}}</a></td>
                             <td>{{$party->members->count()}}</td>
                         </tr>
                     @endforeach

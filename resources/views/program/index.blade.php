@@ -16,7 +16,7 @@
                     <tr>
                         <td>{{ $program->code }}</td>
                         <td>{{$program->faculty->abbreviation}}</td>
-                        <td><a href="{{ route('program.show', $program) }}">{{ $program->name }} ({{ $program->getStudyLevel() }})</a></td>
+                        <td><a href="{{ route('admin.program.show', $program) }}">{{ $program->name }} ({{ $program->getStudyLevel() }})</a></td>
                         <td>{{$program->students_count}}</td>
                     </tr>
                 @endforeach

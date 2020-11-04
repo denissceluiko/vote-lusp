@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Faculty;
+use App\Election;
+use App\Http\Controllers\Controller;
 use App\Party;
 use Illuminate\Http\Request;
 
@@ -31,8 +32,8 @@ class PartyController extends Controller
 
     public function edit(Party $party)
     {
-        $faculties = Faculty::orderBy('name')->get();
-        return view('party.edit', compact('party', 'faculties'));
+        $elections = Election::orderBy('name')->get();
+        return view('party.edit', compact('party', 'elections'));
     }
 
     public function update(Request $request, Party $party)
@@ -40,12 +41,12 @@ class PartyController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'number' => 'required|integer',
-            'faculty_id' => 'required|exists:faculties,id',
+            'election_id' => 'required|exists:elections,id',
         ]);
 
         $party->update($request->all());
 
-        return redirect()->route('party.show', $party);
+        return redirect()->route('admin.party.show', $party);
     }
 
     public function ballot(Party $party)

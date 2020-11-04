@@ -49,7 +49,7 @@
                     <tbody>
                     @foreach($election->parties as $party)
                         <tr>
-                            <td><a href="{{ route('party.show', $party) }}">{{ $party->name }}</a></td>
+                            <td><a href="{{ route('admin.party.show', $party) }}">{{ $party->name }}</a></td>
                             <td>{{ $party->candidates()->count() }}</td>
                         </tr>
                     @endforeach

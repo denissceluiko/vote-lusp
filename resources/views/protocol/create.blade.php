@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <h1>{{ $faculty->name }} ({{ $faculty->abbreviation }})</h1>
                 <div class="col-4">
-                    {{ Form::open(['action' => ['ProtocolController@store', $faculty]]) }}
+                    {{ Form::open(['route' => ['protocol.store', $faculty]]) }}
                     <div class="form-group">
                         {{ Form::label('member_count', 'SP biedru skaits') }}
                         {{ Form::text('member_count', null, ['class' => 'form-control']) }}

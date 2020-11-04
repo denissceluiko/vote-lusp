@@ -110,6 +110,11 @@ class Election extends Model
         return $this->hasStarted() && !$this->isFinished();
     }
 
+    public function canVote(Student $student)
+    {
+        return $this->faculty_id == $student->program->faculty_id;
+    }
+
     public function nextVotingTime()
     {
         return $this->votingTimes()->upcoming(Carbon::now())->first();

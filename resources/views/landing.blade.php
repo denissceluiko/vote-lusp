@@ -16,10 +16,9 @@
                             <p>{{ $time->formatted('%from - %to', 'd.m. H:i') }}</p>
                         @endforeach
                         @if($election->inProgress())
-                            <a class="card-link btn btn-primary btn-block" href="">Balsot</a>
-                        @else
-                            <a class="card-link btn btn-outline-dark btn-block" href="">Kanidāti</a>
+                            <a class="btn btn-primary btn-block" href="{{ route('election.registration', $election) }}">Balsot</a>
                         @endif
+                        <a class="btn btn-outline-dark btn-block" href="{{ route('election.show',$election) }}">Kanidāti</a>
                     </div>
                 </div>
             </div>

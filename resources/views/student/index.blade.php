@@ -17,8 +17,8 @@
                     @foreach($students as $student)
                         <tr>
                             <td class="d-none d-md-table-cell">{{ ($students->currentPage()-1)*$students->perPage() + $loop->iteration }}</td>
-                            <td><a href="{{ route('student.show', $student) }}">{{ $student->name }} {{ $student->surname }}</a></td>
-                            <td class="d-none d-md-table-cell"><a href="{{ route('faculty.show', $student->program->faculty) }}">{{ $student->program->faculty->abbreviation }}</a></td>
+                            <td><a href="{{ route('admin.student.show', $student) }}">{{ $student->name }} {{ $student->surname }}</a></td>
+                            <td class="d-none d-md-table-cell"><a href="{{ route('admin.faculty.show', $student->program->faculty) }}">{{ $student->program->faculty->abbreviation }}</a></td>
                             <td>{{ $student->sid }}</td>
                             <td>{{ $student->status }}</td>
                         </tr>

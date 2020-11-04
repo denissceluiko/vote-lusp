@@ -4,11 +4,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h6><a href="{{ route('election.show', $party->election) }}">{{ $party->election->name }}</a></h6>
+                <h6><a href="{{ route('admin.election.show', $party->election) }}">{{ $party->election->name }}</a></h6>
                 <h1>Saraksts Nr. {{ $party->number ?? 'x' }} "{{ $party->name }}"</h1>
                 <div class="col-12 mb-4">
-                    <a href="{{ route('party.ballot', $party) }}" class="btn btn-primary">Generēt biļetenu</a>
-                    <a href="{{ route('party.edit', $party) }}" class="btn btn-secondary">Rediģēt</a>
+                    <a href="{{ route('admin.party.ballot', $party) }}" class="btn btn-primary">Generēt biļetenu</a>
+                    <a href="{{ route('admin.party.edit', $party) }}" class="btn btn-secondary">Rediģēt</a>
                 </div>
                 <table class="table">
                     <thead>

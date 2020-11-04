@@ -17,7 +17,7 @@
                     <tbody>
                     @foreach($faculty->elections as $election)
                         <tr>
-                            <td><a href="{{ route('election.show', $election) }}">{{ $election->name }}</a></td>
+                            <td><a href="{{ route('admin.election.show', $election) }}">{{ $election->name }}</a></td>
                             <td>{{ $election->parties()->count() }}</td>
                         </tr>
                     @endforeach

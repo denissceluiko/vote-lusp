@@ -5,9 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1>{{ $program->name }}</h1>
-                <h6><a href="{{ route('faculty.show', $program->faculty) }}">{{ $program->faculty->name }}</a></h6>
+                <h6><a href="{{ route('admin.faculty.show', $program->faculty) }}">{{ $program->faculty->name }}</a></h6>
                 <div class="col-12">
-                    <a href="{{ route('program.studentList', $program) }}" class="btn btn-secondary">Generate student list</a>
+                    <a href="{{ route('admin.program.studentList', $program) }}" class="btn btn-secondary">Generate student list</a>
                 </div>
                 <div class="col-md-6 mt-2">
                     <dl class="row">
