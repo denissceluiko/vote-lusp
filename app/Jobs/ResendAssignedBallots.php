@@ -16,13 +16,18 @@ class ResendAssignedBallots implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
+     * @var Election|null $election
+     */
+    protected $election = null;
+
+    /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Election|null $election
      */
-    public function __construct()
+    public function __construct($election = null)
     {
-        //
+        $this->election = $election ? intval($election) : null;
     }
 
     /**
@@ -32,12 +37,12 @@ class ResendAssignedBallots implements ShouldQueue
      */
     public function handle()
     {
-        $elections = Election::all();
+        $elections = $this->election ? Election::where('id', $this->election)->get() : Election::all();
         $mailedBallots = 0;
 
         Log::info("Resending ballots.");
-
         $elections->each(function(Election $election) use ($mailedBallots) {
+            Log::info("Resending ballots for {$election->name}.");
             $mailedBallots += $this->mailAssignedBallots($election);
         });
 
