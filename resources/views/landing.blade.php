@@ -18,7 +18,7 @@
                         @if($election->inProgress())
                             <a class="btn btn-primary btn-block" href="{{ route('election.registration', $election) }}">Balsot</a>
                         @endif
-                        <a class="btn btn-outline-dark btn-block" href="{{ route('election.show',$election) }}">Kanidāti</a>
+                        <a class="btn btn-outline-dark btn-block" href="{{ route('election.show',$election) }}">Kandidāti</a>
                     </div>
                 </div>
             </div>
