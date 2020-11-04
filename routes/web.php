@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('voter.create');
+Route::get('/', 'HomeController@landing');
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+
 });
 
 Route::prefix('faculty')->group(function () {

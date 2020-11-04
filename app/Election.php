@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -94,9 +95,19 @@ class Election extends Model
         return $this->votingTimes()->open(Carbon::now())->exists();
     }
 
+    public function hasStarted()
+    {
+        return $this->votingTimes()->started(Carbon::now())->exists();
+    }
+
     public function isFinished()
     {
         return !($this->isOpen() || $this->votingTimes()->upcoming(Carbon::now())->exists());
+    }
+
+    public function inProgress()
+    {
+        return $this->hasStarted() && !$this->isFinished();
     }
 
     public function nextVotingTime()
@@ -115,8 +126,13 @@ class Election extends Model
         $time = $this->nextVotingTime();
         if (!$time) return $pollsClosed;
 
-        $format = str_replace('%from', $time->start_at->format($dateformat), $format);
-        $format = str_replace('%to', $time->end_at->format($dateformat), $format);
-        return $format;
+        return $time->formatted($format, $dateformat);
+    }
+
+    public function scopeThisWeek(Builder $query)
+    {
+        return $query->whereHas('votingTimes', function (Builder $query) {
+            $query->week(Carbon::now());
+        });
     }
 }

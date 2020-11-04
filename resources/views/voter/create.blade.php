@@ -22,8 +22,6 @@
                         {{ Form::close() }}
                     </div>
                 </div>
-                <p><a href="https://docs.google.com/a/lusp.lv/viewer?a=v&pid=sites&srcid=bHVzcC5sdnxsdXNwaXN8Z3g6Mzc5ZTBlZGEwNWNjY2NkZg">LU SP Satversme</a></p>
-                <p><a href="https://docs.google.com/a/lusp.lv/viewer?a=v&pid=sites&srcid=bHVzcC5sdnxsdXNwaXN8Z3g6NzQxMGRlYzI3NzBiMWY4NQ">LU SP Vēlēšanu nolikums</a></p>
                 @include('snippets.helpdesk')
             </div>
         </div>
