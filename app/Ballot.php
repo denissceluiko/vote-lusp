@@ -79,7 +79,7 @@ class Ballot extends Model
         Notification::route('mail', $this->formatRecipient())
             ->notify(new BallotSent($this));
 
-        Log::info("Ballot sent to {$this->voter->student->fullName()} for {$this->voter->student->sid}");
+        Log::info("Ballot sent to {$this->voter->student->full_name} for {$this->voter->student->sid}");
         return true;
     }
 

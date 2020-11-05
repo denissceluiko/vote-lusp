@@ -13,6 +13,10 @@ class Election extends Model
 {
     protected $fillable = ['name', 'name_short'];
 
+    protected $casts = [
+        'data' => 'array',
+    ];
+
     public function faculty() : BelongsTo
     {
         return $this->belongsTo(Faculty::class);

@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-12 col-lg-6 offset-lg-3">
                 <h1>{{ $ballot->election->name }}</h1>
+                @if(!$ballot->election->isFinished())
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Lūdzu ievadi e-pastā norādīto paroli</h5>
@@ -20,6 +21,9 @@
                         {{ Form::close() }}
                     </div>
                 </div>
+                @else
+                    @include('snippets.voting-offline')
+                @endif
                 @include('snippets.helpdesk')
             </div>
         </div>

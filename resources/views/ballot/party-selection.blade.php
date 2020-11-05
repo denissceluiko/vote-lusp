@@ -4,9 +4,7 @@
     <div class="container">
         <h1>{{ $ballot->election->name }}</h1>
         <h4>Kandidātu saraksti</h4>
-        @if(!$ballot->election->isOpen())
-            @include('snippets.voting-offline')
-        @endif
+        @include('snippets.ballot-offline')
         <div class="row">
             @foreach($parties as $party)
                 <div class="col-12 col-lg-4">

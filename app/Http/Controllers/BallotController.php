@@ -15,6 +15,9 @@ class BallotController extends Controller
         if ($ballot->isCast())
             return view('ballot.cast', compact('ballot'));
 
+        if($ballot->election->isFinished())
+            return redirect()->route('election.show', $ballot->election);
+
         return view('ballot.show', compact('ballot'));
 
     }
@@ -22,6 +25,9 @@ class BallotController extends Controller
     public function auth(Request $request, Ballot $ballot)
     {
         if ($ballot->isCast()) return redirect()->action('BallotController@show', $ballot);
+
+        if($ballot->election->isFinished())
+            return redirect()->route('election.show', $ballot->election);
 
         $this->validate($request, [
             'password' => 'required'

@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <h1>{{ $election->name }}</h1>
+        @include('snippets.voting-offline')
         <div class="row">
             <div class="col-12 col-lg-6">
                 <h5>Vēlēšanu raksturlielumi</h5>
@@ -64,7 +65,7 @@
                 </div>
             @endforeach
         </div>
-        @if($election->inProgress())
+        @if($election->isOpen())
         <a href="{{ route('election.registration', $election) }}" class="btn btn-primary btn-block">Balsot</a>
         @endif
     </div>

@@ -65,26 +65,68 @@
             <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <a class="btn btn-block btn-warning" href="">Rediģēt</a>
-                        @if($election->isFinished())
-                        <a class="btn btn-block btn-primary" href="{{ route('admin.election.protocol', $election) }}">Noslēgt vēlēšanas</a>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <table class="table">
                     <thead>
                     <th>Saraksts</th>
                     <th>Kandidāti</th>
+                    <th>Balsis par sarakstu</th>
                     </thead>
                     <tbody>
-                    @foreach($parties as $party)
+                    @foreach($election->parties as $party)
                         <tr>
                             <td><a href="{{ route('admin.party.show', $party) }}">{{ $party->name }}</a></td>
                             <td>{{ $party->candidates()->count() }}</td>
+                            <td>{{ $party->votes }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            @foreach($election->parties as $party)
+            <div class="col-12 col-md-6">
+                <table class="table">
+                    <thead>
+                        <th>Kandidāts</th>
+                        <th>Par</th>
+                        <th>Pret</th>
+                        <th>Kopā</th>
+                    </thead>
+                    <tbody>
+                        @foreach($party->candidates as $candidate)
+                        <tr>
+                            <td><a href="{{ route('admin.student.show', $candidate->student) }}">{{ $candidate->student->fullname }}</a> ({{ $candidate->student_id }})</td>
+                            <td>{{ $candidate->votesFor }}</td>
+                            <td>{{ $candidate->votesAgainst }}</td>
+                            <td>{{ $candidate->votesFor - $candidate->votesAgainst }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endforeach
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <th>Vēlēšanu zīme</th>
+                    <th>Statuss</th>
+                    <th>Balss</th>
+                    </thead>
+                    <tbody>
+                    @foreach($election->ballots as $ballot)
+                        <tr>
+                            <td>{{ $ballot->slug }}</td>
+                            <td>{{ $ballot->status }}</td>
+                            <td>{{ $ballot->vote }}</td>
                         </tr>
                     @endforeach
                     </tbody>
