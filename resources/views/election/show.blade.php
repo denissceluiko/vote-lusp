@@ -81,7 +81,7 @@
                     <th>Kandidāti</th>
                     </thead>
                     <tbody>
-                    @foreach($parties as $party)
+                    @foreach($election->parties as $party)
                         <tr>
                             <td><a href="{{ route('admin.party.show', $party) }}">{{ $party->name }}</a></td>
                             <td>{{ $party->candidates()->count() }}</td>
