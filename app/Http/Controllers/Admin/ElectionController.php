@@ -73,16 +73,18 @@ class ElectionController extends Controller
             $ballotData->push(json_decode($vote));
         });
 
-        $parties->each(function (Party $party) use ($ballotData) {
+        $election->parties->each(function (Party $party) use ($ballotData) {
             $party->votes = $ballotData->where('party_id', $party->id)->count();
 
-            $party->candidates->each(function (Candidate $candidate, $key) use ($ballotData, $party) {
+            $party->candidates = $party->candidates->each(function (Candidate $candidate) use ($ballotData, $party) {
                 $candidate->votesFor = $ballotData->where('candidates.'.$candidate->student_id, '=', '1')->count();
                 $candidate->votesAgainst = $ballotData->where('candidates.'.$candidate->student_id, '=', '-1')->count();
+                $candidate->votesTotal = $candidate->votesFor - $candidate->votesAgainst;
+            })->sortByDesc('votesTotal')->values()->each(function (Candidate $candidate, $key) use ($party) {
                 $candidate->division = $party->votes / (2*$key+1);
             });
         });
 
-        return view('election.protocol', compact('election', 'parties'));
+        return view('election.protocol', compact('election'));
     }
 }

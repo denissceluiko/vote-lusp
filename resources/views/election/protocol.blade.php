@@ -117,7 +117,15 @@
         <div class="row">
             <h3>Dalījumi</h3>
             <table class="table">
-                <thead></thead>
+                <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Vārds (ID)</th>
+                    <th>Saraksts</th>
+                    <th>Dalījums</th>
+                    <th>Lēmums</th>
+                </tr>
+                </thead>
                 <tbody>
                 @foreach($election->parties->pluck('candidates')->flatten()->sortByDesc('division') as $candidate)
                     <tr>
