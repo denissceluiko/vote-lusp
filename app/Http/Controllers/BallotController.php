@@ -39,7 +39,7 @@ class BallotController extends Controller
 
         $ballot->open();
 
-        $parties = $ballot->election->parties()->orderBy('number')->with(['members'])->get();
+        $parties = $ballot->election->parties()->ordered()->with(['members'])->get();
 
         return view('ballot.party-selection', compact('ballot', 'parties'));
     }

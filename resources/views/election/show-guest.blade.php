@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach($election->parties as $party)
+            @foreach($election->parties()->ordered()->get() as $party)
                 <div class="col-12 col-md-6 col-xl-4">
                     <div class="card mb-4">
                         <div class="card-body">

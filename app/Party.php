@@ -46,6 +46,11 @@ class Party extends Model
         return $query->where('name', $name);
     }
 
+    public function scopeOrdered(Builder $query)
+    {
+        return $query->orderBy('number');
+    }
+
     public function createBallot()
     {
         if ($this->members->count() > 40) {
