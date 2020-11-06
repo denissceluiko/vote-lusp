@@ -51,6 +51,11 @@ class Party extends Model
         return $query->orderBy('number');
     }
 
+    public function canSee(User $user = null)
+    {
+        return $this->election->canSee($user);
+    }
+
     public function createBallot()
     {
         if ($this->members->count() > 40) {

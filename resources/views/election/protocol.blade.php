@@ -106,7 +106,7 @@
                             <td><a href="{{ route('admin.student.show', $candidate->student) }}">{{ $candidate->student->fullname }}</a> ({{ $candidate->student_id }})</td>
                             <td>{{ $candidate->votesFor }}</td>
                             <td>{{ $candidate->votesAgainst }}</td>
-                            <td>{{ $candidate->votesFor - $candidate->votesAgainst }}</td>
+                            <td>{{ $candidate->votesTotal }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -133,6 +133,13 @@
                         <td><a href="{{ route('admin.student.show', $candidate->student) }}">{{ $candidate->student->fullname }}</a> ({{ $candidate->student_id }})</td>
                         <td>{{ $candidate->party->name }}</td>
                         <td>{{ $candidate->division }}</td>
+                        <td>
+                            @if($loop->iteration <= $election->data('seats'))
+                                Ievēlēts
+                            @else
+                                Neievēlēts
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

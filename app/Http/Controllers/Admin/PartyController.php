@@ -17,6 +17,7 @@ class PartyController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin')->except(['index', 'show']);
     }
 
     public function index()
@@ -27,6 +28,7 @@ class PartyController extends Controller
 
     public function show(Party $party)
     {
+        if (!$party->canSee()) return back();
         return view('party.show', compact('party'));
     }
 

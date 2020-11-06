@@ -64,8 +64,16 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <div class="card">
+                    <div class="card-body border-bottom">
+                        <dl class="row">
+                            <dt class="col-8">Mandātu skaits</dt>
+                            <dd class="col-4">{{ $election->data('seats') }}</dd>
+                        </dl>
+                    </div>
                     <div class="card-body">
-                        <a class="btn btn-block btn-warning" href="">Rediģēt</a>
+                        @if(auth()->user()->isAdmin())
+                        <a class="btn btn-block btn-warning" href="{{ route('admin.election.edit', $election) }}">Rediģēt</a>
+                        @endif
                         @if($election->isFinished())
                         <a class="btn btn-block btn-primary" href="{{ route('admin.election.protocol', $election) }}">Noslēgt vēlēšanas</a>
                         @endif

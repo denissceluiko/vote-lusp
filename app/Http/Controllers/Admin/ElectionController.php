@@ -20,6 +20,7 @@ class ElectionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin')->only(['import']);
     }
 
     public function index()
@@ -30,6 +31,7 @@ class ElectionController extends Controller
 
     public function show(Election $election)
     {
+        if (!$election->canSee()) return back();
         return view('election.show', compact('election'));
     }
 
@@ -57,14 +59,34 @@ class ElectionController extends Controller
         return view('election.voters', compact('election'));
     }
 
+    public function edit(Election $election)
+    {
+        if (!auth()->user()->isAdmin()) return back();
+        return view('election.edit', compact('election'));
+    }
+
+    public function update(Request $request, Election $election)
+    {
+        if (!auth()->user()->isAdmin()) return back();
+        $this->validate($request, [
+            'name' => 'required',
+            'name_short' => 'required',
+            'seats' => 'required|int',
+        ]);
+
+        $election->fill($request->all());
+        $election->data('seats', $request->seats);
+
+        $election->save();
+        return redirect()->route('admin.election.show', compact('election'));
+    }
 
     public function protocol(Election $election)
     {
-        if (!$election->isFinished()) back();
+        if (!$election->isFinished()) return back();
+        if (!$election->canSee()) return back();
 
         $election->load(['ballots', 'parties.candidates.student']);
-
-        $parties = $election->parties;
 
         $ballotBlob = $election->ballots()->used()->get()->pluck('vote');
         $ballotData = collect();

@@ -17,6 +17,7 @@ class CandidateController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     public function import(Request $request)

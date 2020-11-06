@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,4 +37,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeElections() : BelongsToMany
+    {
+        return $this->belongsToMany(Election::class, 'commissioners')->using(Commissioner::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
 }

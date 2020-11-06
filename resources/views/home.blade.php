@@ -23,6 +23,7 @@
                 </div>
             </div>
         </div>
+        @if(auth()->user()->isAdmin())
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Import faculties</div>
@@ -88,6 +89,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </div>
 @endsection

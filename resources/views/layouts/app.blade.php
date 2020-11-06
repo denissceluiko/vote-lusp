@@ -40,9 +40,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.student.index')  }}">{{ __('Students') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('protocol.index')  }}">{{ __('Protocols') }}</a>
-                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -3,14 +3,18 @@
 namespace App;
 
 use Carbon\Carbon;
+use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Election extends Model
 {
+    use FormAccessible;
+
     protected $fillable = ['name', 'name_short'];
 
     protected $casts = [
@@ -45,6 +49,18 @@ class Election extends Model
     public function votingTimes() : HasMany
     {
         return $this->hasMany(VotingTime::class);
+    }
+
+    public function commissioners() : BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'commissioners')
+            ->as('comissioner')
+            ->using(Commissioner::class);
+    }
+
+    public function canSee(User $user = null)
+    {
+        return $this->commissioners()->where('user_id', $user ?? auth()->user()->id)->exists();
     }
 
     public function generateBallots()
@@ -136,6 +152,20 @@ class Election extends Model
         if (!$time) return $pollsClosed;
 
         return $time->formatted($format, $dateformat);
+    }
+
+    public function data($key, $value = null)
+    {
+        if (!$value) return $this->data[$key] ?? null;
+        $data = $this->data ?? [];
+        $data[$key] = $value;
+        $this->data = $data;
+        return $value;
+    }
+
+    public function formSeatsAttribute($value)
+    {
+        return $this->data ? $this->data['seats'] : 0;
     }
 
     public function scopeThisWeek(Builder $query)
