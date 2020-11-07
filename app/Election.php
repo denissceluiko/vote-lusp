@@ -60,8 +60,8 @@ class Election extends Model
 
     public function canSee(User $user = null)
     {
-        $user = $user ?? auth()->user()->id;
-        return $user->isAdmin() || $this->commissioners()->where('user_id', $user)->exists();
+        $user = $user ?? auth()->user();
+        return $user->isAdmin() || $this->commissioners()->where('user_id', $user->id)->exists();
     }
 
     public function generateBallots()
