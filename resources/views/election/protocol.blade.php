@@ -92,7 +92,7 @@
         <div class="row">
             @foreach($election->parties as $party)
             <div class="col-12 col-md-6">
-                <h5>Nr. {{ $party->number }} {{ $party->name }}</h5>
+                <h5>Nr. {{ $party->number }} {{ $party->name }} ({{ $party->id }})</h5>
                 <table class="table">
                     <thead>
                         <th>Kandidāts</th>
