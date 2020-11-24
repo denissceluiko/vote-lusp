@@ -89,13 +89,12 @@ class Election extends Model
     {
         if ($this->hasVoter($student)) return false;
 
-        $ballot = $this->getUnusedBallot();
-
         $voter = $this->voters()->create([
             'student_id' => $student->id,
             'election_id' => $this->id,
         ]);
 
+        $ballot = $this->getUnusedBallot();
         $ballot->assign($voter);
         $ballot->send();
     }
