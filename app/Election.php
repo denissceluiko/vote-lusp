@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Facades\DB;
 
 class Election extends Model
 {
@@ -89,13 +90,22 @@ class Election extends Model
     {
         if ($this->hasVoter($student)) return false;
 
-        $voter = $this->voters()->create([
-            'student_id' => $student->id,
-            'election_id' => $this->id,
-        ]);
+        DB::beginTransaction();
 
-        $ballot = $this->getUnusedBallot();
-        $ballot->assign($voter);
+        try {
+            $voter = $this->voters()->create([
+                'student_id' => $student->id,
+                'election_id' => $this->id,
+            ]);
+
+            $ballot = $this->getUnusedBallot();
+            $ballot->assign($voter);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
         $ballot->send();
     }
 
@@ -107,7 +117,7 @@ class Election extends Model
 
     private function getUnusedBallot() : Ballot
     {
-        return $this->ballots()->unused()->first();
+        return $this->ballots()->unused()->lockForUpdate()->first();
     }
 
     public function isOpen()
