@@ -37,13 +37,15 @@ class ProgramImport implements ToCollection, WithHeadingRow, SkipsOnError, WithB
                 continue;
             }
 
-            $faculty->programs()->updateOrCreate([
-                'code' => trim($row['code'])
-                ],[
+            $updates = collect([
                 'lri' => trim($row['lri']),
                 'name' => trim($row['name']),
-                'name_eng' => trim($row['name_eng']),
-            ]);
+                'name_eng' => $row['name_eng'] ?? null,
+            ])->filter(fn($value) => !empty($value))->toArray();
+
+            $faculty->programs()->updateOrCreate([
+                'code' => trim($row['code'])
+                ], $updates);
         }
     }
 
@@ -53,11 +55,14 @@ class ProgramImport implements ToCollection, WithHeadingRow, SkipsOnError, WithB
         $program = Program::byCode($row['code'])->first();
 
         if (!$program) return;
-        $program->update([
+
+        $updates = collect([
             'lri' => trim($row['lri']),
             'name' => trim($row['name']),
-            'name_eng' => trim($row['name_eng']),
-        ]);
+            'name_eng' => $row['name_eng'] ?? null,
+        ])->filter(fn($value) => !empty($value))->toArray();
+
+        $program->update($updates);
     }
 
     /**

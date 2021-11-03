@@ -8,11 +8,11 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
-        "ext-bcmath": "^7.2",
-        "ext-mbstring": "^7.2",
-        "ext-mysqli": "^7.2",
-        "ext-xml": "^7.2",
+        "php": "^8.0",
+        "ext-bcmath": "^8.0",
+        "ext-mbstring": "^8.0",
+        "ext-mysqli": "^8.0",
+        "ext-xml": "^8.0",
         "ext-zip": "^1.15",
         "denissimon/formula-parser": "^2.7",
         "fideloper/proxy": "^4.0",
@@ -21,7 +21,7 @@
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.0",
         "maatwebsite/excel": "^3.1",
-        "phpoffice/phpword": "^0.17.0"
+        "phpoffice/phpword": "^0.18"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

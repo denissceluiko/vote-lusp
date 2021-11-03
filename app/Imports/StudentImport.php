@@ -90,7 +90,7 @@ class StudentImport
 
         if ($faculty == null) {
             Log::warning("Faculty {$row['faculty_name']} not found.");
-            return;
+            return null;
         }
 
         return $faculty->programs()->create([
@@ -109,6 +109,9 @@ class StudentImport
         });
         $emails = array_values($emails);
 
+        // This shouldn't happen but it does. FML.
+        $emails = !empty($emails) ? $emails : [$this->guessEmail($row)];
+
         $emails[0] = $this->formatPrimaryEmail($emails[0]);
         return implode(';', $emails);
     }
@@ -119,6 +122,7 @@ class StudentImport
         // options -> aa00000@students.lu.lv, aa00000@lu.lv, name.surname@lu.lv, username@lu.lv, smth else
         $allowedDomains = [
             'students.lu.lv',
+            'edu.lu.lv',
             'lu.lv'
         ];
 
@@ -127,7 +131,7 @@ class StudentImport
         if (!in_array($domain, $allowedDomains)) return $email; // not LU domain
         if ($domain == 'students.lu.lv') return $email; // @students.lu.lv
 
-        preg_match('/^[a-z]{2}[0-9]{5}$/', $user, $matches); // aa00000@lu.lv
+        preg_match('/^[a-z]{2}[0-9]{5}$/', $user, $matches); // aa00000@lu.lv || aa00000@edu.lu.lv
         if (!empty($matches)) return $user.'@students.lu.lv';
 
         return $email; // other @lu.lv emails
@@ -140,5 +144,10 @@ class StudentImport
     public function chunkSize(): int
     {
         return 200;
+    }
+
+    public function guessEmail($row)
+    {
+        return $row['student_id'].'@students.lu.lv';
     }
 }
