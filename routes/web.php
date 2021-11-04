@@ -27,6 +27,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('{election}/voters', 'ElectionController@voters')->name('election.voters');
         Route::get('{election}/protocol', 'ElectionController@protocol')->name('election.protocol');
         Route::get('{election}/edit', 'ElectionController@edit')->name('election.edit');
+        Route::get('{election}/addTime', 'VotingTimeController@create')->name('votingtime.create');
+        Route::post('{election}/addTime', 'VotingTimeController@store')->name('votingtime.store');
         Route::get('{election}', 'ElectionController@show')->name('election.show');
         Route::put('{election}', 'ElectionController@update')->name('election.update');
     });

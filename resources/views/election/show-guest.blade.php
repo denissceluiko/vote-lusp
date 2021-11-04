@@ -56,8 +56,8 @@
                             <h5 class="card-title">Nr.{{ $party->number }} {{ $party->name }}</h5>
                             <dl class="row mb-0">
                                 @foreach($party->members as $member)
-                                    <dt class="col-2">{{ $loop->iteration }}.</dt>
-                                    <dd class="col-10">{{ $member->name }} {{ $member->surname }}</dd>
+                                    <dt class="col-3 col-lg-2">{{ $loop->iteration }}.</dt>
+                                    <dd class="col-9 col-lg-10">{{ $member->name }} {{ $member->surname }}</dd>
                                 @endforeach
                             </dl>
                         </div>

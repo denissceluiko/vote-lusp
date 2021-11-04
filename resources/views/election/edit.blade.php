@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1>Saraksts "{{ $election->name }}"</h1>
+                <h1>Vēlēšanas "{{ $election->name }}"</h1>
                 {{ Form::model($election, ['route' => ['admin.election.update', $election], 'method' => 'put']) }}
                 <div class="form-group">
                     {{ Form::label('name', 'Nosaukums') }}

@@ -43,7 +43,10 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <div class="card">
-                    <div class="card-header">Balsošanas laiki</div>
+                    <div class="card-header d-flex">
+                        <div class="flex-grow-1">Balsošanas laiki</div>
+                        <div class=""><a href="{{ route('admin.votingtime.create', $election) }}" class="btn btn-primary btn-sm">+</a></div>
+                    </div>
                     <table class="table table-borderless">
                         <thead>
                         <tr>
