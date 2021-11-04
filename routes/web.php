@@ -27,10 +27,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('{election}/voters', 'ElectionController@voters')->name('election.voters');
         Route::get('{election}/protocol', 'ElectionController@protocol')->name('election.protocol');
         Route::get('{election}/edit', 'ElectionController@edit')->name('election.edit');
-        Route::get('{election}/addTime', 'VotingTimeController@create')->name('votingtime.create');
         Route::post('{election}/addTime', 'VotingTimeController@store')->name('votingtime.store');
         Route::get('{election}', 'ElectionController@show')->name('election.show');
         Route::put('{election}', 'ElectionController@update')->name('election.update');
+    });
+
+    Route::prefix('votingtime')->group(function () {
+        Route::get('{election}/create', 'VotingTimeController@create')->name('votingtime.create');
+        Route::post('/', 'VotingTimeController@store')->name('votingtime.store');
+        Route::get('{votingtime}/edit', 'VotingTimeController@edit')->name('votingtime.edit');
+        Route::patch('{votingtime}', 'VotingTimeController@update')->name('votingtime.update');
+        Route::delete('{votingtime}', 'VotingTimeController@delete')->name('votingtime.delete');
     });
 
     Route::prefix('student')->group(function () {

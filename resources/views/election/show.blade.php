@@ -59,6 +59,7 @@
                             <tr>
                                 <td>{{ $time->formatted('%from', 'd.m. H:i') }}</td>
                                 <td>{{ $time->formatted('%to', 'd.m. H:i') }}</td>
+                                <td><a href="{{ route('admin.votingtime.edit', $time) }}" class="">Rediģēt</a></td>
                             </tr>
                         @endforeach
                         </tbody>

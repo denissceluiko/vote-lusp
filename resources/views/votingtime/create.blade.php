@@ -6,6 +6,7 @@
             <div class="col-md-12">
                 <h1>Balsošanas laika pievienošana "{{ $election->name }}"</h1>
                 {{ Form::open(['route' => ['admin.votingtime.store', $election], 'method' => 'post']) }}
+                {{ Form::hidden('election_id', $election->id) }}
                 <div class="form-group">
                     {{ Form::label('name_short', 'Sākums') }}
                     {{ Form::text('start_at', null, ['class' => 'form-control', 'placeholder' => 'd.m.Y H:i']) }}
