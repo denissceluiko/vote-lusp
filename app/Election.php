@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Election extends Model
 {
@@ -101,12 +102,11 @@ class Election extends Model
             $ballot = $this->getUnusedBallot();
             $ballot->assign($voter);
             DB::commit();
+            $ballot->send();
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            Log::warning("Could not add voter {$student->full_name}. ".$e->getMessage());
         }
-
-        $ballot->send();
     }
 
     public function attemptResending(Voter $voter)
@@ -117,7 +117,7 @@ class Election extends Model
 
     private function getUnusedBallot() : Ballot
     {
-        return $this->ballots()->unused()->lockForUpdate()->first();
+        return $this->ballots()->unused()->inRandomOrder()->limit(1)->lockForUpdate()->first();
     }
 
     public function isOpen()

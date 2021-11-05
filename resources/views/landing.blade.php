@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h1>2020. gada Latvijas Universitātes fakultāšu studentu pašpārvalžu vēlēšanas</h1>
+        <h1>Latvijas Universitātes fakultāšu studentu pašpārvalžu vēlēšanas</h1>
         <p>Ņemot vērā to, ka šobrīd studijas notiek pārsvarā attālināti, pašpārvalžu vēlēšanas arī nolemts pārcelt uz tiešsaistes vidi.</p>
-        <p>Lai saņemtu savu vēlēšanu zīmi, ievadi zemāk savu studenta apliecības numuru, nospied "Saņemt" un pārbaudi savu studenta e-pastu (<a href="https://www.lu.lv/epasts" target="_blank">lu.lv/epasts</a>). E-pastā būs tālākas instrukcijas balsojuma veikšanai.</p>
+        <p>Lai saņemtu savu vēlēšanu zīmi, ievadi zemāk savu studenta apliecības numuru, nospied "Saņemt" un pārbaudi savu studenta e-pastu (<a href="https://www.lu.lv/epasts" target="_blank">lu.lv/epasts</a>). E-pastā meklē e-pastu no <span class="text-info">{{ env('MAIL_FROM_ADDRESS') }}</span> un tālākas instrukcijas balsojuma veikšanai.</p>
         <div class="card-columns">
             @foreach($elections as $election)
                 <div class="card">

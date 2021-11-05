@@ -15,6 +15,7 @@
         "ext-xml": "^8.0",
         "ext-zip": "^1.15",
         "denissimon/formula-parser": "^2.7",
+        "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
