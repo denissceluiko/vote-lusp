@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <h1>{{ $election->name }}</h1>
+        @if(session('ballotGeneration'))
+            <div class="alert alert-info">{{ session('ballotGeneration') }}</div>
+        @endif
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <div class="card">
@@ -77,6 +80,9 @@
                     <div class="card-body">
                         @if(auth()->user()->isAdmin())
                         <a class="btn btn-block btn-warning" href="{{ route('admin.election.edit', $election) }}">Rediģēt</a>
+                        {{ Form::open(['route' => ['admin.election.generateBallots', $election]]) }}
+                        {{ Form::submit('Ģenerēt biļetenus', ['class' => "form-control btn btn-block btn-info my-1"]) }}
+                        {{ Form::close([]) }}
                         @endif
                         @if($election->isFinished())
                         <a class="btn btn-block btn-primary" href="{{ route('admin.election.protocol', $election) }}">Noslēgt vēlēšanas</a>

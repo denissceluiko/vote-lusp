@@ -6,6 +6,7 @@ use App\Candidate;
 use App\Election;
 use App\Http\Controllers\Controller;
 use App\Imports\ElectionImport;
+use App\Jobs\GenerateBallots;
 use App\Party;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -108,5 +109,11 @@ class ElectionController extends Controller
         });
 
         return view('election.protocol', compact('election'));
+    }
+
+    public function generateBallots(Election $election)
+    {
+        GenerateBallots::dispatch($election);
+        return back()->with(['ballotGeneration' => 'Sāka ģenerēt vēlēšanu zīmes']);
     }
 }
