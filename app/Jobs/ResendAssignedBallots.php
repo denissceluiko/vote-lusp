@@ -55,7 +55,7 @@ class ResendAssignedBallots implements ShouldQueue
         $assignedCount = 0;
 
         $assignedBallots->each(function (Ballot $ballot) use ($assignedCount) {
-            if ($ballot->send()) $assignedCount++;
+            if ($ballot->send(true)) $assignedCount++;
         });
 
         return $assignedCount;
