@@ -45,8 +45,8 @@ class VotingTime extends Model
     public function scopeWeek(Builder $query, Carbon $time)
     {
         return $query->where([
-            ['start_at', '>=', $time->startOfWeek()->toDateString()],
-            ['end_at', '<=', $time->endOfWeek()->toDateString()]
+            ['start_at', '>=', $time->startOfWeek()->toDatetimeString()],
+            ['end_at', '<=', $time->endOfWeek()->toDatetimeString()]
         ]);
     }
 

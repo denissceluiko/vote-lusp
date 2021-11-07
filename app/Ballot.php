@@ -72,12 +72,12 @@ class Ballot extends Model
         return $this;
     }
 
-    public function send()
+    public function send($resending = false)
     {
         if (!$this->isAssigned()) return false;
 
         Notification::route('mail', $this->formatRecipient())
-            ->notify(new BallotSent($this));
+            ->notify(new BallotSent($this, $resending));
 
         Log::info("Ballot sent to {$this->voter->student->full_name} for {$this->voter->student->sid}");
         return true;

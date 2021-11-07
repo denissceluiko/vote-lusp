@@ -112,7 +112,7 @@ class Election extends Model
     public function attemptResending(Voter $voter)
     {
         if (!$voter->ballot) return false;
-        return $voter->ballot->send();
+        return $voter->ballot->send(true);
     }
 
     private function getUnusedBallot() : Ballot

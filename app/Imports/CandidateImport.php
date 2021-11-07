@@ -98,7 +98,7 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
 
     public function checkStudent($student, $candidate)
     {
-        if ($student->name != $candidate['name'] && $student->surname != $candidate['surname']) {
+        if ($student->name != $candidate['name'] && $student->surname != $candidate['surname']) { // Note: fails only if both name and surname do not match
             Log::info("{$student->name} {$student->surname} ({$student->sid}) is not {$candidate['name']} {$candidate['surname']} ({$candidate['student_id']})");
             return false;
         }
