@@ -105,6 +105,7 @@ class Election extends Model
             $ballot->send();
         } catch (\Exception $e) {
             DB::rollBack();
+            session()->flash('voteError', 'Nesanāca piešķirt vēlēšanu zīmi, lūdzu mēģini vēlreiz.');
             Log::warning("Could not add voter {$student->full_name}. ".$e->getMessage());
         }
     }
