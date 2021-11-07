@@ -95,6 +95,7 @@ class StudentImport
 
         return $faculty->programs()->create([
             'code' => trim($row['program_code']),
+            'lri' => trim($row['lri']),
             'name' => trim($row['program_name']),
         ]);
     }
@@ -113,7 +114,7 @@ class StudentImport
         $emails = !empty($emails) ? $emails : [$this->guessEmail($row)];
 
         $emails[0] = $this->formatPrimaryEmail($emails[0]);
-        return implode(';', $emails);
+        return implode(';', array_unique($emails));
     }
 
 
