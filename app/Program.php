@@ -52,6 +52,7 @@ class Program extends Model
             '47' => 'PMSP',
             '48' => '2.LPSP',
             '49' => '2.LPSP',
+            '50' => '2.LPSP',
             '51' => 'DSP',
         ];
 

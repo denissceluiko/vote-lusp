@@ -20,7 +20,7 @@ class CreatePartiesTable extends Migration
             $table->bigInteger('election_id');
             $table->timestamps();
 
-            $table->unique(['name', 'election_id']);
+            // $table->unique(['name', 'election_id']);
         });
     }
 

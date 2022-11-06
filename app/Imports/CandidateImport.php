@@ -40,6 +40,13 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
             }
 
             $student = $this->findStudent($candidate);
+
+            if (!$student) return;
+
+            // if ($student->program->faculty_id != $election->faculty->id) {
+            //     Log::alert("Wrong faculty for {$student->name} {$student->surname} ({$student->sid}): {$student->program->faculty->abbreviation} instead of {$election->faculty->name}");
+            // }
+
             $student->update([
                 'phone' => $candidate['phone'],
                 'email' => $candidate['email'],
@@ -75,7 +82,7 @@ class CandidateImport implements ToCollection, WithHeadingRow, SkipsOnError, Ski
 
     public function findStudent($candidate)
     {
-        $student = Student::bySID($candidate['student_id'])->first();
+        $student = Student::bySID($candidate['student_id'])->with('program')->first();
 
         if ($student && $this->checkStudent($student, $candidate)) {
             Log::info("Found by SID {$candidate['name']} {$candidate['surname']} ({$candidate['student_id']})");
