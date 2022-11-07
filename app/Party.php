@@ -112,7 +112,7 @@ class Party extends Model
         $path = Storage::putFileAs(
             'ballots',
             new File($ballot->save()),
-            $this->election->name.' - '.$this->name.'.docx',
+            $this->election->name.' - '.substr($this->name, 0, 150).'.docx',
             'public'
         );
 
