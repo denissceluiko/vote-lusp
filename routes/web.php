@@ -64,6 +64,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::post('import', 'ProgramController@import');
         Route::get('{program}/studentList', 'ProgramController@studentList')->name('program.studentList');
     });
+
+    Route::prefix('protocol')->group(function () {
+        Route::get('/', 'ProtocolController@index')->name('protocol.index');
+        Route::get('{election}/create', 'ProtocolController@create')->name('protocol.create');
+        Route::post('{election}/store', 'ProtocolController@store')->name('protocol.store');
+        Route::get('{protocol}/fill', 'ProtocolController@fill')->name('protocol.fill');
+        Route::post('{protocol}/save', 'ProtocolController@save')->name('protocol.save');
+        Route::get('{protocol}/fillCandidates', 'ProtocolController@fillCandidates')->name('protocol.fillCandidates');
+        Route::post('{protocol}/saveCandidates', 'ProtocolController@saveCandidates')->name('protocol.saveCandidates');
+        Route::get('{protocol}/results', 'ProtocolController@results')->name('protocol.results');
+    });
+
 });
 
 Route::prefix('election')->group(function () {
@@ -77,17 +89,6 @@ Route::prefix('vote')->group(function () {
     Route::post('{ballot}', 'BallotController@auth');
     Route::post('{ballot}/select', 'BallotController@selectParty');
     Route::post('{ballot}/vote', 'BallotController@vote');
-});
-
-Route::prefix('protocol')->group(function () {
-    Route::get('/', 'ProtocolController@index')->name('protocol.index');
-    Route::get('{faculty}/create', 'ProtocolController@create')->name('protocol.create');
-    Route::post('{faculty}/store', 'ProtocolController@store')->name('protocol.store');
-    Route::get('{protocol}/fill', 'ProtocolController@fill')->name('protocol.fill');
-    Route::post('{protocol}/save', 'ProtocolController@save')->name('protocol.save');
-    Route::get('{protocol}/fillCandidates', 'ProtocolController@fillCandidates')->name('protocol.fillCandidates');
-    Route::post('{protocol}/saveCandidates', 'ProtocolController@saveCandidates')->name('protocol.saveCandidates');
-    Route::get('{protocol}/results', 'ProtocolController@results')->name('protocol.results');
 });
 
 Auth::routes(['register' => false]);

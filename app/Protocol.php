@@ -9,21 +9,33 @@ class Protocol extends Model
     protected $guarded = [];
     protected $distribution = [];
 
-    public function faculty() : BelongsTo
+    protected $casts = [
+        'data' => 'array',
+    ];
+
+    public function election() : BelongsTo
     {
-        return $this->belongsTo(Faculty::class);
+        return $this->belongsTo(Election::class);
     }
 
     protected function getDivisions(Party $party)
     {
         $result = [];
 
+        $candidates = $party->candidates()->get();
+
+        foreach ($candidates as $candidate) {
+            $candidate['votes_sum'] = $this->data['candidates'][$candidate->id]['votes_sum'];
+        }
+
+        $candidates->sortByDesc(['votes_sum', 'id']);
+
         $n = 1;
-        foreach($party->candidates()->byVotes()->get() as $candidate)
+        foreach ($candidates as $candidate)
         {
             $result[] = [
                 'candidate' => $candidate,
-                'div' => $party->ballots_valid / $n,
+                'div' => $this->data['parties'][$party->id]['ballots_valid'] / $n,
             ];
             $n += 2;
         }
@@ -47,9 +59,9 @@ class Protocol extends Model
             return $this->distribution;
 
 
-        foreach ($this->faculty->parties as $party)
+        foreach ($this->data['parties'] as $party_id => $party)
         {
-            $this->distribution = array_merge($this->distribution, $this->getDivisions($party));
+            $this->distribution = array_merge($this->distribution, $this->getDivisions(Party::find($party_id)));
         }
 
         $this->sortDistributions();

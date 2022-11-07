@@ -12,8 +12,9 @@
                 <tbody>
                 @foreach(App\Protocol::all() as $protocol)
                     <tr>
-                        <td><a href="{{ route('protocol.results', $protocol) }}">{{ $protocol->id }}</a></td>
-                        <td>{{ $protocol->faculty->name}}</td>
+                        <td>{{ $protocol->id }}</td>
+                        <td><a href="{{ route('admin.election.show', $protocol->election) }}">{{ $protocol->election->name}}</a></td>
+                        <td><a href="{{ route('admin.protocol.results', $protocol) }}">Protokols</a></td>
                     </tr>
                 @endforeach
                 </tbody>

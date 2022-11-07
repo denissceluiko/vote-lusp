@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Candidate;
+use App\Election;
 use App\Faculty;
+use App\Http\Controllers\Controller;
 use App\Party;
 use App\Protocol;
 use FormulaParser\FormulaParser;
@@ -26,12 +28,12 @@ class ProtocolController extends Controller
         return view('protocol.index');
     }
 
-    public function create(Faculty $faculty)
+    public function create(Election $election)
     {
-        return view('protocol.create', compact('faculty'));
+        return view('protocol.create', compact('election'));
     }
 
-    public function store(Request $request, Faculty $faculty)
+    public function store(Request $request, Election $election)
     {
         $this->validate($request, [
             'member_count' => 'required',
@@ -41,9 +43,9 @@ class ProtocolController extends Controller
             'ballots_void' => 'required',
         ]);
 
-        $protocol = $faculty->protocols()->create($request->all());
+        $protocol = $election->protocols()->create($request->all());
 
-        return redirect()->action('ProtocolController@fill', compact('protocol'));
+        return redirect()->action('Admin\ProtocolController@fill', compact('protocol'));
     }
 
     public function fill(Protocol $protocol)
@@ -59,28 +61,36 @@ class ProtocolController extends Controller
             'ballots_unchanged' => 'required',
         ]);
 
+        $parties = [];
+
         foreach($request->get('ballots_valid') as $party_id => $count)
         {
+            $count = str_replace('0', '0.0', $count);
             $result = (new FormulaParser(str_replace(' ', '+', $count)))->getResult();
             $count = round($result[1]);
-            Party::find($party_id)->update(['ballots_valid' => $count]);
+            $parties[$party_id] = ['ballots_valid' => $count];
         }
 
         foreach($request->get('ballots_changed') as $party_id => $count)
         {
+            $count = str_replace('0', '0.0', $count);
             $result = (new FormulaParser(str_replace(' ', '+', $count)))->getResult();
             $count = round($result[1]);
-            Party::find($party_id)->update(['ballots_changed' => $count]);
+            $parties[$party_id]['ballots_changed'] = $count;
         }
 
         foreach($request->get('ballots_unchanged') as $party_id => $count)
         {
+            $count = str_replace('0', '0.0', $count);
             $result = (new FormulaParser(str_replace(' ', '+', $count)))->getResult();
             $count = round($result[1]);
-            Party::find($party_id)->update(['ballots_unchanged' => $count]);
+            $parties[$party_id]['ballots_unchanged'] = $count;
         }
 
-        return redirect()->action('ProtocolController@fillCandidates', $protocol);
+        $protocol->data = array_merge($protocol->data ?? [], ['parties' => $parties]);
+        $protocol->save();
+
+        return redirect()->action('Admin\ProtocolController@fillCandidates', $protocol);
     }
 
     public function fillCandidates(Protocol $protocol)
@@ -95,21 +105,32 @@ class ProtocolController extends Controller
             'votes_against' => 'required',
         ]);
 
+        $candidates = [];
+
         foreach($request->get('votes_for') as $candidate_id => $count)
         {
+            $count = str_replace('0', '0.0', $count);
             $result = (new FormulaParser(str_replace(' ', '+', $count)))->getResult();
             $count = round($result[1]);
-            Candidate::find($candidate_id)->update(['votes_for' => $count]);
+            $candidates[$candidate_id]['votes_for'] = $count;
         }
 
         foreach($request->get('votes_against') as $candidate_id => $count)
         {
+            $count = str_replace('0', '0.0', $count);
             $result = (new FormulaParser(str_replace(' ', '+', $count)))->getResult();
             $count = round($result[1]);
-            Candidate::find($candidate_id)->update(['votes_against' => $count]);
+            $candidates[$candidate_id]['votes_against'] = $count;
         }
 
-        return redirect()->action('ProtocolController@results', $protocol);
+        foreach ($candidates as &$candidate) {
+            $candidate['votes_sum'] = $candidate['votes_for'] - $candidate['votes_against'];
+        }
+
+        $protocol->data = array_merge($protocol->data ?? [], ['candidates' => $candidates]);
+        $protocol->save();
+
+        return redirect()->action('Admin\ProtocolController@results', $protocol);
     }
 
     public function results(Protocol $protocol)

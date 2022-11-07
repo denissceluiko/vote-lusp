@@ -4,16 +4,16 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1>{{ $faculty->name }} ({{ $faculty->abbreviation }})</h1>
+                <h1>{{ $election->name }}</h1>
                 <div class="col-4">
-                    {{ Form::open(['route' => ['protocol.store', $faculty]]) }}
+                    {{ Form::open(['route' => ['admin.protocol.store', $election]]) }}
                     <div class="form-group">
-                        {{ Form::label('member_count', 'SP biedru skaits') }}
-                        {{ Form::text('member_count', null, ['class' => 'form-control']) }}
+                        {{ Form::label('member_count', 'Ievēlamo biedru skaits') }}
+                        {{ Form::text('member_count', $election->data['seats'] ?? 0, ['class' => 'form-control']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('voters_eligible', 'Balsstiesīgo skaits') }}
-                        {{ Form::text('voters_eligible', null, ['class' => 'form-control']) }}
+                        {{ Form::text('voters_eligible', $election->faculty->students()->count() ?? 0, ['class' => 'form-control']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('voters_attended', 'Izsniegto zīmju skaits') }}

@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-12"><a href="{{ route('protocol.fillCandidates', $protocol) }}">Atpakaļ</a></div>
+        <div class="col-12"><a href="{{ route('admin.protocol.fillCandidates', $protocol) }}">Atpakaļ</a></div>
         <div class="col-md-12">
-            <h1>{{ $protocol->faculty->abbreviation }} SP vēlēšanu protokols ({{ $protocol->id }}), rezultāti</h1>
+            <h1>{{ $protocol->election->name }} vēlēšanu protokols ({{ $protocol->id }}), rezultāti</h1>
         </div>
         <h2>Pamatinformācija</h2>
         <dl class="row">
@@ -22,18 +22,18 @@
         </dl>
         <h2>Sarakstu dati</h2>
         <div class="row">
-            @foreach($protocol->faculty->parties()->orderBy('number')->get() as $party)
+            @foreach($protocol->election->parties()->orderBy('number')->get() as $party)
             <div class="col-md-6">
                 <div class="col-12">
                     <h4>Nr. {{ $party->number }}. | {{ $party->name }}</h4>
                 </div>
                 <dl class="row">
                     <dt class="col-8">Par sarakstu nodoto zīmju skaits</dt>
-                    <dd class="col-4">{{ $party->ballots_valid }}</dd>
+                    <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_valid'] }}</dd>
                     <dt class="col-8">Par sarakstu nodoto grozīto zīmju skaits</dt>
-                    <dd class="col-4">{{ $party->ballots_changed }}</dd>
+                    <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_changed'] }}</dd>
                     <dt class="col-8">Par sarakstu nodoto negrozīto zīmju skaits</dt>
-                    <dd class="col-4">{{ $party->ballots_unchanged }}</dd>
+                    <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_unchanged'] }}</dd>
                 </dl>
                 <table class="table">
                     <tr>
@@ -47,9 +47,9 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $candidate->student->name }} {{ $candidate->student->surname }}</td>
-                            <td>{{ $candidate->votes_for }}</td>
-                            <td>{{ $candidate->votes_against }}</td>
-                            <td>{{ $candidate->votes_for - $candidate->votes_against }}</td>
+                            <td>{{ $protocol->data['candidates'][$candidate->id]['votes_for'] }}</td>
+                            <td>{{ $protocol->data['candidates'][$candidate->id]['votes_against'] }}</td>
+                            <td>{{ $protocol->data['candidates'][$candidate->id]['votes_sum'] }}</td>
                         </tr>
                     @endforeach
                 </table>

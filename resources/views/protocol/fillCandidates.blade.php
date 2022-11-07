@@ -3,14 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-12"><a href="{{ route('protocol.fill', $protocol) }}">Atpakaļ</a></div>
+        <div class="col-12"><a href="{{ route('admin.protocol.fill', $protocol) }}">Atpakaļ</a></div>
         <div class="col-md-12">
-            <h1>{{ $protocol->faculty->abbreviation }} SP vēlēšanu protokols ({{ $protocol->id }}), kandidāti</h1>
+            <h1>{{ $protocol->election->abbreviation }} vēlēšanu protokols ({{ $protocol->id }}), kandidāti</h1>
             <p>Ailītēs droši raksti gan summas cik kopā saskaitīts, gan aritmētiskas izteiksmes, piem., (3+4+4+5), ja rezultātus sauc vairāki cilvēki. Tā kā rakstīt plusus ir čakarīgi, to pašu var uzraksīt tos aizvietojot ar tukšumsimboliem, piem., (3 4 4 5). Sistēma pati izrēķinās summu.</p>
         </div>
-        {{ Form::open(['action' => ['ProtocolController@saveCandidates', $protocol], 'class' => 'col-md-12']) }}
+        {{ Form::open(['action' => ['Admin\ProtocolController@saveCandidates', $protocol], 'class' => 'col-md-12']) }}
         <div class="row">
-            @foreach($protocol->faculty->parties()->orderBy('number')->get() as $party)
+            @foreach($protocol->election->parties()->orderBy('number')->get() as $party)
             <div class="col-md-6">
                 <div class="col-12">
                     <h4>{{ $party->number }}. {{ $party->name }}</h4>

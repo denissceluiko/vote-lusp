@@ -33,11 +33,6 @@ class Faculty extends Model
         return $this->hasMany(Party::class);
     }
 
-    public function protocols() : HasMany
-    {
-        return $this->hasMany(Protocol::class);
-    }
-
     public function elections() : HasMany
     {
         return $this->hasMany(Election::class);

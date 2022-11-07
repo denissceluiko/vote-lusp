@@ -19,7 +19,7 @@
                     <div><a href="{{ route('admin.student.index') }}">Students</a>: {{ App\Student::count() }}</div>
                     <div><a href="{{ route('admin.party.index') }}">Parties</a>: {{ App\Party::count() }}</div>
                     <div>Candidates: {{ App\Candidate::count() }}</div>
-                    <div><a href="{{ route('protocol.index') }}">Protocols</a>: {{ App\Protocol::count() }}</div>
+                    <div><a href="{{ route('admin.protocol.index') }}">Protocols</a>: {{ App\Protocol::count() }}</div>
                 </div>
             </div>
         </div>

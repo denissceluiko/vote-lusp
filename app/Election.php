@@ -63,6 +63,11 @@ class Election extends Model
             ->using(Commissioner::class);
     }
 
+    public function protocols() : HasMany
+    {
+        return $this->hasMany(Protocol::class);
+    }
+
     public function canSee(User $user = null)
     {
         $user = $user ?? auth()->user();
