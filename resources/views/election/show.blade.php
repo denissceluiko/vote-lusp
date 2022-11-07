@@ -83,6 +83,9 @@
                         {{ Form::open(['route' => ['admin.election.generateBallots', $election]]) }}
                         {{ Form::submit('Ģenerēt biļetenus', ['class' => "form-control btn btn-block btn-info my-1"]) }}
                         {{ Form::close([]) }}
+                        {{ Form::open(['route' => ['admin.election.voterList', $election]]) }}
+                        {{ Form::submit('Lejupielādet velētāju sarakstu', ['class' => "form-control btn btn-block btn-info my-1"]) }}
+                        {{ Form::close() }}
                         @endif
                         @if($election->isFinished())
                         <a class="btn btn-block btn-primary" href="{{ route('admin.election.protocol', $election) }}">Noslēgt vēlēšanas</a>

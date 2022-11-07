@@ -61,29 +61,33 @@ class Program extends Model
 
     public function createStudentList()
     {
-        $studentList = new TemplateProcessor(resource_path('templates/Voter-registration.docx'));
+        $studentList = new TemplateProcessor(resource_path('templates/Student-list.docx'));
 
-        $studentList->setValue('faculty_name', "{$this->faculty->abbreviation}");
+        $studentList->setValue('program_name', $this->name);
+        $studentList->setValue('program_level', $this->getStudyLevel());
+        $studentList->setValue('lri', $this->lri);
+        $studentList->setValue('code', $this->code);
         $studentList->setValue('year', Carbon::now()->format('Y.'));
 
-        $students = $this->students()->orderBy('surname')->get();
+        $students = $this->students()->orderBy('sid')->get();
 
-        $studentList->cloneRow('vno', $students->count());
+        $studentList->cloneRow('sno', $students->count());
 
         foreach ($students as $key => $student) {
-            $key += 1; // Array nomerates from 0, clones numerate from 1
+            $key += 1; // Array numerates from 0, clones numerate from 1
             $studentList->setValues([
-                "vno#$key" => $key.'.',
-                "voter_name#$key" => $student->name,
-                "voter_surname#$key" => $student->surname,
-                "voter_sid#$key" => $student->sid,
+                "sno#$key" => $key.'.',
+                "student_name#$key" => $student->name,
+                "student_surname#$key" => $student->surname,
+                "student_sid#$key" => $student->sid,
+                "student_status#$key" => $student->status,
             ]);
         }
 
         $path = Storage::putFileAs(
             'student-list',
             new File($studentList->save()),
-            $this->faculty->abbreviation." - {$this->name}".' - studentu saraksts.docx',
+            $this->faculty->abbreviation." - {$this->name} {$this->getStudyLevel()}".' - studentu saraksts.docx',
             'public'
         );
 

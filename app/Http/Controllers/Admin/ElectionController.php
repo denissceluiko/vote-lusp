@@ -111,6 +111,11 @@ class ElectionController extends Controller
         return view('election.protocol', compact('election'));
     }
 
+    public function voterList(Election $election)
+    {
+        return response()->download(storage_path('app/'.$election->createVoterList()));
+    }
+
     public function generateBallots(Election $election)
     {
         GenerateBallots::dispatch($election);

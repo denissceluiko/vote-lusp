@@ -11,7 +11,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class Election extends Model
 {
@@ -64,6 +67,36 @@ class Election extends Model
     {
         $user = $user ?? auth()->user();
         return $user->isAdmin() || $this->commissioners()->where('user_id', $user->id)->exists();
+    }
+
+    public function createVoterList()
+    {
+        $voterList = new TemplateProcessor(resource_path('templates/Voter-registration.docx'));
+
+        $voterList->setValue('election_name', "{$this->name}");
+
+        $voters = $this->faculty->students()->orderBy('sid')->get();
+
+        $voterList->cloneRow('vno', $voters->count());
+
+        foreach ($voters as $key => $voter) {
+            $key += 1; // Array numerates from 0, clones numerate from 1
+            $voterList->setValues([
+                "vno#$key" => $key.'.',
+                "voter_name#$key" => $voter->name,
+                "voter_surname#$key" => $voter->surname,
+                "voter_sid#$key" => $voter->sid,
+            ]);
+        }
+
+        $path = Storage::putFileAs(
+            'voter-list',
+            new File($voterList->save()),
+            $this->name.' - vēlētāju saraksts.docx',
+            'public'
+        );
+
+        return $path;
     }
 
     public function generateBallots()
