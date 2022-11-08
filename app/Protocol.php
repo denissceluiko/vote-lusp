@@ -159,6 +159,7 @@ class Protocol extends Model
                 $j++;
             }
 
+            $i++;
         }
 
         // Results
