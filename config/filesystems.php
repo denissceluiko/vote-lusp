@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'protocols' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/protocols'),
+            'url' => env('APP_URL').'/storage/protocols',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

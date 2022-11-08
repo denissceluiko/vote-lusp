@@ -89,6 +89,7 @@
                         @endif
                         @if($election->isFinished())
                         <a class="btn btn-block btn-primary" href="{{ route('admin.election.protocol', $election) }}">Noslēgt vēlēšanas</a>
+                        <a class="btn btn-block btn-success" href="{{ route('admin.protocol.create', $election) }}">Izveidot protokolu</a>
                         @endif
                     </div>
                 </div>

@@ -26,8 +26,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $candidate->student->name }} {{ $candidate->student->surname }}</td>
-                        <td>{{ Form::text("votes_for[{$candidate->id}]", $candidate->votes_for, ['class' => 'form-control']) }}</td>
-                        <td>{{ Form::text("votes_against[{$candidate->id}]", $candidate->votes_against, ['class' => 'form-control']) }}</td>
+                        <td>{{ Form::text("votes_for[{$candidate->id}]", $protocol->data['candidates'][$candidate->id]['votes_for'] ?? '', ['class' => 'form-control']) }}</td>
+                        <td>{{ Form::text("votes_against[{$candidate->id}]", $protocol->data['candidates'][$candidate->id]['votes_against'] ?? '', ['class' => 'form-control']) }}</td>
                     </tr>
                     @endforeach
                 </table>

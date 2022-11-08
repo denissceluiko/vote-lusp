@@ -6,35 +6,40 @@
         <div class="col-12"><a href="{{ route('admin.protocol.fillCandidates', $protocol) }}">Atpakaļ</a></div>
         <div class="col-md-12">
             <h1>{{ $protocol->election->name }} vēlēšanu protokols ({{ $protocol->id }}), rezultāti</h1>
+            <a href="{{ route('admin.protocol.export', $protocol) }}">Lejupielādēt protokolu</a>
         </div>
-        <h2>Pamatinformācija</h2>
-        <dl class="row">
-            <dt class="col-8">FSP biedru skaits</dt>
-            <dd class="col-4">{{ $protocol->member_count }}</dd>
-            <dt class="col-8">Balsstiesīgo skaits</dt>
-            <dd class="col-4">{{ $protocol->voters_eligible }}</dd>
-            <dt class="col-8">Izsniegto zīmju skaits</dt>
-            <dd class="col-4">{{ $protocol->voters_attended }}</dd>
-            <dt class="col-8">Urnā atrasto zīmju skaits</dt>
-            <dd class="col-4">{{ $protocol->ballots_found }}</dd>
-            <dt class="col-8">Nederīgo zīmju skaits</dt>
-            <dd class="col-4">{{ $protocol->ballots_void }}</dd>
-        </dl>
-        <h2>Sarakstu dati</h2>
+        <h2 class="col-md-12">Pamatinformācija</h2>
+        <div class="col-12 col-md-6">
+            <dl class="row">
+                <dt class="col-8">FSP biedru skaits</dt>
+                <dd class="col-4">{{ $protocol->member_count }}</dd>
+                <dt class="col-8">Balsstiesīgo skaits</dt>
+                <dd class="col-4">{{ $protocol->voters_eligible }}</dd>
+                <dt class="col-8">Izsniegto zīmju skaits</dt>
+                <dd class="col-4">{{ $protocol->voters_attended }}</dd>
+                <dt class="col-8">Urnā atrasto zīmju skaits</dt>
+                <dd class="col-4">{{ $protocol->ballots_found }}</dd>
+                <dt class="col-8">Nederīgo zīmju skaits</dt>
+                <dd class="col-4">{{ $protocol->ballots_void }}</dd>
+            </dl>
+        </div>
+        <h2 class="col-md-12">Sarakstu dati</h2>
         <div class="row">
             @foreach($protocol->election->parties()->orderBy('number')->get() as $party)
             <div class="col-md-6">
                 <div class="col-12">
                     <h4>Nr. {{ $party->number }}. | {{ $party->name }}</h4>
                 </div>
-                <dl class="row">
-                    <dt class="col-8">Par sarakstu nodoto zīmju skaits</dt>
-                    <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_valid'] }}</dd>
-                    <dt class="col-8">Par sarakstu nodoto grozīto zīmju skaits</dt>
-                    <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_changed'] }}</dd>
-                    <dt class="col-8">Par sarakstu nodoto negrozīto zīmju skaits</dt>
-                    <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_unchanged'] }}</dd>
-                </dl>
+                <div class="col-12">
+                    <dl class="row">
+                        <dt class="col-8">Par sarakstu nodoto zīmju skaits</dt>
+                        <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_valid'] }}</dd>
+                        <dt class="col-8">Par sarakstu nodoto grozīto zīmju skaits</dt>
+                        <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_changed'] }}</dd>
+                        <dt class="col-8">Par sarakstu nodoto negrozīto zīmju skaits</dt>
+                        <dd class="col-4">{{ $protocol->data['parties'][$party->id]['ballots_unchanged'] }}</dd>
+                    </dl>
+                </div>
                 <table class="table">
                     <tr>
                         <th>Nr.</th>
@@ -68,8 +73,8 @@
             <tr>
                 <th>Nr.</th>
                 <th>Saraksts</th>
-                <th>Dalījums</th>
                 <th>Vārds</th>
+                <th>Dalījums</th>
             </tr>
             @foreach($protocol->getDistribution() as $position)
                 <tr class="{{ $loop->iteration > $protocol->member_count ? 'table-warning' : 'table-success' }}">

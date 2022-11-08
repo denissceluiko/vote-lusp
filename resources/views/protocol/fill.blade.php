@@ -16,15 +16,15 @@
                         <div class="card-body">
                             <div class="form-group">
                                 {{ Form::label("ballots_valid[{$party->id}]", 'Par sarakstu nodoto zīmju skaits') }}
-                                {{ Form::text("ballots_valid[{$party->id}]", $party->ballots_valid, ['class' => 'form-control']) }}
+                                {{ Form::text("ballots_valid[{$party->id}]", $protocol->data['parties'][$party->id]['ballots_valid'] ?? '', ['class' => 'form-control']) }}
                             </div>
                             <div class="form-group">
                                 {{ Form::label("ballots_changed[{$party->id}]", 'Par sarakstu nodoto grozīto zīmju skaits') }}
-                                {{ Form::text("ballots_changed[{$party->id}]", $party->ballots_changed, ['class' => 'form-control']) }}
+                                {{ Form::text("ballots_changed[{$party->id}]", $protocol->data['parties'][$party->id]['ballots_changed'] ?? '', ['class' => 'form-control']) }}
                             </div>
                             <div class="form-group">
                                 {{ Form::label("ballots_unchanged[{$party->id}]", 'Par sarakstu nodoto negrozīto zīmju skaits') }}
-                                {{ Form::text("ballots_unchanged[{$party->id}]", $party->ballots_unchanged, ['class' => 'form-control']) }}
+                                {{ Form::text("ballots_unchanged[{$party->id}]", $protocol->data['parties'][$party->id]['ballots_unchanged'] ?? '', ['class' => 'form-control']) }}
                             </div>
                         </div>
                     </div>

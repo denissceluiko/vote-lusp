@@ -10,6 +10,7 @@ use App\Party;
 use App\Protocol;
 use FormulaParser\FormulaParser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProtocolController extends Controller
 {
@@ -136,5 +137,10 @@ class ProtocolController extends Controller
     public function results(Protocol $protocol)
     {
         return view('protocol.results', compact('protocol'));
+    }
+
+    public function export(Protocol $protocol)
+    {
+        return Storage::disk('protocols')->download($protocol->export(), $protocol->election->name.' protokols.docx');
     }
 }
