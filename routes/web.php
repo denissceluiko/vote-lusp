@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::prefix('party')->group(function () {
         Route::get('/', 'PartyController@index')->name('party.index');
         Route::get('{party}/ballot', 'PartyController@ballot')->name('party.ballot');
+        Route::get('{party}/helper', 'PartyController@countingHelper')->name('party.countingHelper');
     });
     Route::resource('party', 'PartyController', ['except' => ['create', 'destroy']]);
 

@@ -118,4 +118,32 @@ class Party extends Model
 
         return $path;
     }
+
+    public function createCountingHelper()
+    {
+        $doc = new TemplateProcessor(resource_path('templates/Vote-count-helper.docx'));
+
+        $doc->setValue('election_name', $this->election->name);
+        $doc->setValue('party_name', $this->name);
+        $doc->setValue('party_no', $this->number);
+
+        $doc->cloneRow('candidate', $this->candidates->count());
+
+        $i = 1;
+        foreach ($this->candidates as $candidate)
+        {
+            $doc->setValue("candidate#$i", "$i. {$candidate->student->name} {$candidate->student->surname}");
+
+            $i++;
+        }
+
+        $path = Storage::putFileAs(
+            'vch',
+            new File($doc->save()),
+            $this->election->name.' - '.substr($this->name, 0, 100).'balsu.skaititajs.docx',
+            'public'
+        );
+
+        return $path;
+    }
 }

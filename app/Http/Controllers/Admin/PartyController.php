@@ -55,4 +55,9 @@ class PartyController extends Controller
     {
         return response()->download(storage_path('app/'.$party->createBallot()));
     }
+
+    public function countingHelper(Party $party)
+    {
+        return response()->download(storage_path('app/'.$party->createCountingHelper()));
+    }
 }
