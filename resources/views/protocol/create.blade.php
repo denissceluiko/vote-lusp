@@ -9,23 +9,23 @@
                     {{ Form::open(['route' => ['admin.protocol.store', $election]]) }}
                     <div class="form-group">
                         {{ Form::label('member_count', 'Ievēlamo biedru skaits') }}
-                        {{ Form::text('member_count', $election->data['seats'] ?? 0, ['class' => 'form-control']) }}
+                        {{ Form::text('member_count', $election->data['seats'] ?? '', ['class' => 'form-control', 'required']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('voters_eligible', 'Balsstiesīgo skaits') }}
-                        {{ Form::text('voters_eligible', $election->faculty->students()->count() ?? 0, ['class' => 'form-control']) }}
+                        {{ Form::text('voters_eligible', $election->faculty->students()->count() ?? 0, ['class' => 'form-control', 'required']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('voters_attended', 'Izsniegto zīmju skaits') }}
-                        {{ Form::text('voters_attended', null, ['class' => 'form-control']) }}
+                        {{ Form::text('voters_attended', null, ['class' => 'form-control', 'required']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('ballots_found', 'Urnā atrasto zīmju skaits') }}
-                        {{ Form::text('ballots_found', null, ['class' => 'form-control']) }}
+                        {{ Form::text('ballots_found', null, ['class' => 'form-control', 'required']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('ballots_void', 'Nederīgo zīmju skaits') }}
-                        {{ Form::text('ballots_void', null, ['class' => 'form-control']) }}
+                        {{ Form::text('ballots_void', null, ['class' => 'form-control', 'required']) }}
                     </div>
                     {{ Form::submit('Izveidot protokolu', ['class' => 'btn btn-primary']) }}
                     {{ Form::close() }}
