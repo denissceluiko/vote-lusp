@@ -120,7 +120,7 @@ class Protocol extends Model
 
 
         // Mandate divisions
-        $doc->cloneRow('dno', min($this->member_count, $this->election->candidates()->count()));
+        $doc->cloneRow('dno', $this->election->candidates()->count());
 
         $i = 1;
         foreach ($this->getDistribution() as $position) {
