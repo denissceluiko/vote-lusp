@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::post('import', 'ElectionController@import');
         Route::get('{election}/voters', 'ElectionController@voters')->name('election.voters');
         Route::post('{election}/voterList', 'ElectionController@voterList')->name('election.voterList');
+        Route::get('{election}/helpers', 'ElectionController@downloadCountingHelpers')->name('election.countingHelpers');
         Route::get('{election}/protocol', 'ElectionController@protocol')->name('election.protocol');
         Route::get('{election}/edit', 'ElectionController@edit')->name('election.edit');
         Route::post('{election}/generateBallots', 'ElectionController@generateBallots')->name('election.generateBallots');

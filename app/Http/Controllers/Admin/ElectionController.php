@@ -9,7 +9,9 @@ use App\Imports\ElectionImport;
 use App\Jobs\GenerateBallots;
 use App\Party;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use ZipArchive;
 
 class ElectionController extends Controller
 {
@@ -114,6 +116,23 @@ class ElectionController extends Controller
     public function voterList(Election $election)
     {
         return response()->download(storage_path('app/'.$election->createVoterList()));
+    }
+
+    public function downloadCountingHelpers(Election $election)
+    {
+        $zip_file = sys_get_temp_dir().'/'.$election->name.'.balsu.skaititajs.zip';
+        $zip = new ZipArchive();
+
+        $zip->open($zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        foreach ($election->parties as $party) {
+            $ch_filename = $election->name.' - '.$party->number.'.saraksts.balsu.skaititajs.docx';
+            $zip->addFile(storage_path('app/'.$party->createCountingHelper()), $ch_filename);
+        }
+
+        $zip->close();
+
+        return response()->download($zip_file);
     }
 
     public function generateBallots(Election $election)

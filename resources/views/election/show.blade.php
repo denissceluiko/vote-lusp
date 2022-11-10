@@ -87,6 +87,7 @@
                         {{ Form::submit('Lejupielādet velētāju sarakstu', ['class' => "form-control btn btn-block btn-info my-1"]) }}
                         {{ Form::close() }}
                         @endif
+                        <a class="btn btn-block btn-warning" href="{{ route('admin.election.countingHelpers', $election) }}">Lejupielādēt palīglapas</a>
                         @if($election->isFinished())
                         <a class="btn btn-block btn-primary" href="{{ route('admin.election.protocol', $election) }}">Noslēgt vēlēšanas</a>
                         <a class="btn btn-block btn-success" href="{{ route('admin.protocol.create', $election) }}">Izveidot protokolu</a>
