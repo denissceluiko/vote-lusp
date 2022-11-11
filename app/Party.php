@@ -121,18 +121,40 @@ class Party extends Model
 
     public function createCountingHelper()
     {
-        $doc = new TemplateProcessor(resource_path('templates/Vote-count-helper.docx'));
+        $doc = new TemplateProcessor(resource_path('templates/Vote-count-helper-v4.docx'));
 
         $doc->setValue('election_name', $this->election->name);
         $doc->setValue('party_name', $this->name);
         $doc->setValue('party_no', $this->number);
 
-        $doc->cloneRow('candidate', $this->candidates->count());
+        // In case there's only one ot two candidate
+        if ($this->members->count() > 2) {
+            list($left, $mid, $right) = $this->members->split(3);
+        } elseif ($this->members->count() > 1){
+            list($left, $mid) = $this->members->split(2);
+            $right = collect();
+        } else {
+            $left = $this->members;
+            $mid = collect();
+            $right = collect();
+        }
+
+        $doc->cloneRow('candidate_left', $left->count());
 
         $i = 1;
-        foreach ($this->candidates as $candidate)
+        $n = $left->count();
+
+        while (!$left->isEmpty())
         {
-            $doc->setValue("candidate#$i", "$i. {$candidate->student->name} {$candidate->student->surname}");
+            $candidate_left = $left->shift();
+            $candidate_mid = $mid->shift();
+            $candidate_right = $right->shift();
+
+            $doc->setValues([
+                "candidate_left#$i" => "$i. {$candidate_left->name} {$candidate_left->surname}",
+                "candidate_mid#$i" => $candidate_mid ? ($n + $i).". {$candidate_mid->name} {$candidate_mid->surname}" : '',
+                "candidate_right#$i" => $candidate_right ? (2*$n + $i).". {$candidate_right->name} {$candidate_right->surname}" : '',
+            ]);
 
             $i++;
         }
