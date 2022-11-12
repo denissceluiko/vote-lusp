@@ -129,7 +129,7 @@ class Party extends Model
 
         // In case there's only one ot two candidate
         if ($this->members->count() > 2) {
-            list($left, $mid, $right) = $this->members->split(3);
+            list($left, $mid, $right) = $this->members->splitIn(3);
         } elseif ($this->members->count() > 1){
             list($left, $mid) = $this->members->split(2);
             $right = collect();
