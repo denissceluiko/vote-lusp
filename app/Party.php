@@ -142,7 +142,8 @@ class Party extends Model
         $doc->cloneRow('candidate_left', $left->count());
 
         $i = 1;
-        $n = $left->count();
+        $left_count = $left->count();
+        $mid_count = $mid->count();
 
         while (!$left->isEmpty())
         {
@@ -152,8 +153,8 @@ class Party extends Model
 
             $doc->setValues([
                 "candidate_left#$i" => "$i. {$candidate_left->name} {$candidate_left->surname}",
-                "candidate_mid#$i" => $candidate_mid ? ($n + $i).". {$candidate_mid->name} {$candidate_mid->surname}" : '',
-                "candidate_right#$i" => $candidate_right ? (2*$n + $i).". {$candidate_right->name} {$candidate_right->surname}" : '',
+                "candidate_mid#$i" => $candidate_mid ? ($left_count + $i).". {$candidate_mid->name} {$candidate_mid->surname}" : '',
+                "candidate_right#$i" => $candidate_right ? ($left_count + $mid_count + $i).". {$candidate_right->name} {$candidate_right->surname}" : '',
             ]);
 
             $i++;
